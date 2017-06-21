@@ -1,0 +1,4438 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>2 vi Lightning Talks</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- when changing the stylesheet file please see also remark below -->
+    <link rel="stylesheet" type="text/css" href="styling.css" />
+  </head>
+  <body>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- :::::::::: template pages come first ... skip to REALCONTENT ::::::::: -->
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<textarea id="source">
+
+layout: true
+name: blank
+styling: styling.css
+styling-by: Martin Weitzel
+
+<!--
+  *****************************************************************************
+  Template used for title page (only)
+  *****************************************************************************
+  Please change the 'styling-by:' attribute if you change the style-sheet.
+-->
+
+.stylehint[
+Styled with [{{styling}}]({{styling}}) by {{styling-by}}
+]
+
+---
+layout: true
+name: plain
+copyright: (CC) BY-SA
+branding:  [Dipl.-Ing. Martin Weitzel](http://tbfe.de) &#8199;&#8199; 2017-07-11 (11:15 - 12:45)
+customer:  [ELEKTRONIK PRAXIS & PLC2](http://www.fpga-kongress.de/de)
+
+<!--
+  *****************************************************************************
+  Template used for for pages NOT referring to any Info-Graphic
+  *****************************************************************************
+  The following attributes are mandatory FOR THE TEMPLATE PAGE and should
+  simply be left empty if not meaningful.
+
+  copyright: will be reproduced in each page footer first
+  branding: will reproduced in each page footer next
+  customer: will be reproduced in each page footer last
+
+  As the above attributes are part of several page templates a global replace
+  should be used for consistent changes.
+
+  On pages USING THIS TEMPLATE the following attributes must be set:
+
+  header: ## and header text (i.e. including the markdown formatting indicator)
+
+-->
+
+{{header}}
+
+.pagefooter[
+{{copyright}}: {{branding}} .fpga-logo[{{customer}}]
+]
+
+---
+layout: true
+name: linkinfo
+copyright: (CC) BY-SA
+branding:  [Dipl.-Ing. Martin Weitzel](http://tbfe.de) &#8199;&#8199; 2017-07-11 (11:15 - 12:45)
+customer:  [ELEKTRONIK PRAXIS & PLC2](http://www.fpga-kongress.de/de)
+
+<!--
+  *****************************************************************************
+  Template used for for pages INTRODUCING to a new Info-Graphic
+  *****************************************************************************
+  On this kind of pages a size-reduced version of the whole info graphic will
+  be reproduced and occupies approximately 2/3 of the page width. So only add
+  little information, preferably links to later pages dealing with single
+  sections of the info graphic.
+
+  On pages USING THIS TEMPLATE the following attributes must be set:
+
+  graphic: file path to of the infographic EXCLUDING the suffix.
+  header: ## and header text (i.e. including the markdown formatting indicator)
+
+-->
+
+{{header}}
+
+.infographic[
+[![Info-Grafik](InfoGraphics/{{graphic}}.png)](InfoGraphics/{{graphic}}.png
+                "Click to open – add [CTRL+] SHIFT for new [tabbed] window")
+]
+
+.pagefooter[
+{{copyright}}: {{branding}} .fpga-logo[{{customer}} ]
+]
+
+---
+layout: false
+template: blank
+name: frontmatter
+
+.title[
+	Two Lightning Talks on  
+	*vi* and *vim*
+]
+
+.subtitle[
+	Understanding the "Cultural Differences" of a Famous Text Editor
+	
+]
+.author.pull-left[
+	Durchführung  
+	Dipl.-Ing. Martin Weitzel  
+	Technische Beratung für EDV  
+	http://tbfe.de  
+
+]
+.client.pull-right[
+	FPGA-Kongress 2017, München  
+	2017-07-11 to 2017-07-13  
+	ELEKTRONIK PRAXIS &  
+	PLC2 Schulungscenter
+]
+
+.F[:
+You may download this presentation from the
+[Author's Internet Site](http://tbfe.de/archive)
+for any use in compliance with the
+[Creative Commons BY-SA License](http://creativecommons.org/licenses/by-sa/2.0/).
+As it has been created using the free HTML4-Tool [Remark](http://remarkjs.com),
+its content is written using the
+[Markdown-Syntax](http://daringfireball.net/projects/markdown/syntax),
+so you may even enhance the purely electronic (non-printed) form with your own
+annotations, only by means of any ordinary text editor. Just hit the P-key while
+viewing this in an internet browser, and follow instructions.
+]
+
+???
+
+(use +/- above to adjust the font size for convenient reading)
+
+Remark allows to add presenter notes to each page. As that feature is **not**
+used by the author of that presentation, it is available for private annotations
+from [this page](#content) on.
+
+Assuming you have downloaded and stored this presentation as HTML-file, proceed
+as follows:
+
+* Open the file in a text editor of your choice.
+
+* Locate the page which you want to annotate.
+
+  * You may do so by just scrolling down (but often it is easier to)
+  * use the text search feature of your editor.
+
+* Locate the separator to the next page (i.e. `---` in a line of its own).
+
+* Before that add another line with three question marks (`???`) only.
+
+Between these to separator lines you can put your annotations and view these
+by using as you just view this page.
+
+**Hint:**
+Indent code examples with four spaces at the beginning of each line and they
+will be displayed with their original line breaks. As an example, below the
+page structure including annotations is shown:
+
+    template: plain
+    name: used_for_internal_links
+    header: ## Shown at the Top of the Page
+
+    Simply scroll down through this document loaded in an editor and you will
+    probably catch the basics of Markdown-Syntax easily, e.g.  how to put in
+    *slight* or **strong** emphasis or [add a link](http://tbfe.de/downloads).
+
+    ???
+    From here follow the [Presenter Notes], i.e. your private annotations
+    ...
+    ...
+
+    [Presenter Notes]: adding-longer-links-that-keeps-text--uncluttered
+
+    ...
+    up to here.
+    ---
+
+To return to the normal view, now press the P-key once more.
+
+<!--
+If you want to put in meta-annotations, i.e. text that is not even shown
+after pressing the P-key, simply use HTML comments, like it is done here.
+-->
+
+---
+template: plain
+class: agenda
+name: content
+header: ## Agenda
+
+
+.N.center[
+
+PART 1: 2017-07-11 (11:15 - 12:00)
+
+----------------------------------------
+
+Seven Things Crucial to Understand for  
+Making Friends with "vi" and "vim"
+]
+
+.center[
+Short (3 Minute) Break
+]
+
+.N.center[
+
+PART 2: 2017-07-11 (12:00 - 12:45)
+
+----------------------------------------
+
+7 "vim" Extensions I Personally  
+Consider As the Most Valuable
+]
+
+.center[Please Note:]
+
+This talk can be given in various lengths, so – depending on the available
+time – some pages may only be covered briefly or even skipped over.
+
+---
+template: plain
+header: ## What We Will NOT Do Here
+
+* Proselytize or evangelize on behalf of "vi"
+
+* Discuss whether "vi" is
+
+  * "old fashioned" or just
+  * "note state of the art"
+
+* Try to determine which is *"The Best Editor Ever"*
+
+--
+
+.N.center[
+Also we will neither show nor discuss how "vi" and "vim" might be configured to
+work mostly alike your favorite editor.
+]
+
+--
+
+* Instead the goal is simply this:
+
+  * make your life._[] with "vi" a bit easier …
+  * … no more, no less
+
+.F[:
+Though the target audience is clearly and primarily the occasional "vi" or
+"vim" user, if a better understanding of the history, design principles and
+peculiarities of this editor finally turns you into another "vi" aficionado,
+so be it … :-)
+]
+
+---
+template: linkinfo
+graphic: Comparing_vi
+header: ### Understand: "vi" Is Different from Other Editors
+
+The text editor *vi* (and *vim*)  
+is different from most any competitor
+because
+
+* the user interface is purely text-based
+
+* the general "*look&feel*" may appear somewhat scarce
+
+* you have to switch*._[] between
+
+  * *Command Mode*
+     and
+  * *Text Input Mode*
+
+.F[:
+Later it will be explained why the "Mental Model" of working with *vi* or *vim*
+in different "modes" is sub-optimal. Though it is a very common model (and also
+used here during the first sections) it is only the second-best if the goal is
+to bring you up to top-speed and **fully** exploit the power of "vi" and "vim".
+]
+
+---
+template: plain
+header: ### A Difficult Trade-Off …
+
+At the time *vi* was written, most computers were controlled via simple
+"Teletype-Style" Screens based on 7-bit ASCII, i.e. keyboards generated
+
+* all the "printable characters" – in range 32 (space) to 126 (~), and
+
+* typically most or even all "control codes" – in range 0 to 31, and 127.
+
+For the "Cursor Keys" often._[] some of the control codes were (re-) used,
+i.e. keys generating control codes for "editing operations" were scarce.
+
+.F[:
+If you are interested in more "war stories", dealing with the "good 'ol times"
+when terminal screens displayed greenish glowing characters on a black screen,
+and keyboards had not even – or at least not many – "F-keys", the author of
+this is more than willing to tell you some … :-))
+]
+
+Even considering that by using a "Command Mode" in *vi* **all the keys
+generating printable characters** were available for editing commands too,
+mapping these commands to keys according to a consistent mnemonic sometimes
+was just …
+
+.N.center[
+**… a Mission Impossible**
+]
+
+---
+template: plain
+name: naming_scheme_for_commands
+header: #### Naming Scheme for Commands
+
+Given the limits as describe before, there still is more systematic naming
+as may be obvious at a cursory glance.
+
+.N.center[
+At the moment, you will have to take this mostly at face value.
+]
+
+During the course of this presentation occasionally concrete examples will be
+pointed out.._[]
+
+.F[:
+In the short version of this talk some pages will now be skipped over –
+please click [here to jump](#two_problems_for_novice_users)
+]
+
+---
+template: plain
+header: #### Upper Case vs. Lower Case
+
+For some commands there is lower case and an upper case version which are
+related to each other.
+
+--
+* The lower case version then will work
+  * "towards the *end of file*" or
+  * just "downwards".
+
+--
+
+* The upper case version will have its effect
+  * "towards the *begin of file*" or
+  * just "upwards".
+
+--
+
+.N[
+**Aide-memoire:**
+
+Like the "wide arrow" on the SHIFT-key points *Upwards*, the upper case version
+of two related command letters has its effect upwards.._[]
+]
+
+.F[:
+A particularly interesting case here is *"Find (and Replace)"*, for which *vi*
+uses the commands '/' (direction down) and '?' (direction up) … though, if you
+are used to use German keyboards only, you may need to have a look on the
+typical [US keyboard layout] to understand.
+]
+
+[US keyboard layout]: https://en.wikipedia.org/wiki/File:KB_United_States-NoAltGr.svg
+
+---
+template: plain
+header: #### Commands Prefixing any Move
+
+Some command characters are rather "prefixes" to any other command moving the
+cursor.._[]
+
+--
+
+* Such commands take their effect
+  * **from** the current cursor location 
+  * **to** the target of the move.
+
+.F[:
+Most importantly these are the commands `d` (delete) and `c` (but also include
+`!`, `<`, `>`), which explains why `dw` and `cw` delete or change a word, as
+`w` is the move to the next word.
+]
+
+--
+
+* Furthermore, doubling the command character makes such commands effect
+  just the current line.
+
+.N.center[
+This nicely explains why `dd` is the *vi* command to delete a line.
+]
+
+---
+template: plain
+header: #### Other Reasons to Assign Commands to Keys
+
+Still, please remember "the Mission Impossible" mentioned at the begin
+of this section.
+
+The relations explained so far do not always hold, e.g.
+
+* `j` (lower case) moves the cursor down one line, while
+
+* `J` (upper case) "joins" a line with the next one.
+
+--
+
+.N[
+Actually, `h`, `j`, `k`, and `l` were chosen as commands to move the cursor
+around because of to their close proximity in the keyboard center.
+]
+
+The idea once was, that you do not have to move your finger tips far out for
+such a frequent operation.._[]
+
+.F[:
+As personal note: Unlike other "*vi*-Aficionados" I never got used to cursor
+moves with `h`, `j`, `k`, and `l`. Instead I still use a keyboard's dedicated
+cursor keys (Left, Up. Down, Right), though with a certain but may be important
+tweak: In "Insert Mode" any of this keys will do the expected cursor move **but
+also switch back to "Command Mode"**. Why I think this is superior to the usual
+default mapping (which allows to use the dedicated cursor keys while staying in
+"Insert Mode" should become clearer once the "mode based model" is replace by
+viewing ESC as **part of the command** (inserting or replacing text).
+]
+
+---
+template: plain
+header: #### Numeric Prefixes (1)
+
+Many commands take an optional *Repetition Factor* (denoted by *`nn`* below) for
+which the precise effect depends on the command itself:._[]
+
+* Cursor moves will usually be done just as often, i.e.:
+  * `3l` (lower case ell!) moves the cursor
+    * three characters to the right, but
+    * generally *`nn`*`l` will never beyond the end of the current line
+
+--
+
+  * *`nn`*`w` moves the cursor
+    * *nn* words to right and maybe
+    * also downwards
+
+.F[:
+Of course the general observation to be made here that the designers of *vi*    
+tried to follow the principle of "least surprise" … but depending on prior
+experience what actually causes "surprise" to one person might be what some
+other person would expect. So, sometimes details like the above may also be
+set according to personal preferences, especially in *vim* which is rich on
+such options.
+]
+
+--
+
+  * *`nn`*`b` moves the cursor
+    * *nn* words left and maybe
+    * also upwards
+
+---
+template: plain
+header: #### Numeric Prefixes (2)
+
+Typically a "Repetition Factor" defaults to *1* if none is specified,
+but there are exceptions:
+
+* *`nn`*`J` joins *nn* lines into a single one._[]
+
+* while a plain `J` joins one line with the following one.
+
+* **So the default actually is *2* here!**
+
+--
+
+* or rather the **minimum** is *2*
+  * simply try: `1J`
+
+.N.center[
+Anyway and again: The idea is to follow "the principle of least surprise".
+]
+
+
+.F[:
+By default any **leading* white space is stripped from subsequent lines and
+replaced by a single space, as this is what would make most sense for plain
+text.
+]
+
+---
+template: plain
+header: #### Numeric Prefixes (3)
+
+Some commands take numeric prefix not to specify repetition but as
+absolute value:
+
+* *`nn`*`G` will move the cursor to **line *nn*** (counting from 1) and
+
+* *`nn`*`|` will move the cursor to **column *nn*** (counting from 1)._[]
+
+.N[
+The latter command is **not** the upper case "i" but the vertical bar._[]
+]
+
+.F[:
+On a German keyboard often located left down, with ALT Gr required to be held …
+(Grrrrrr!).
+]
+
+--
+
+* `1G` moves to first line (as you might have expected)
+
+* plain `G` moves to the last line
+
+--
+
+This default makes perfect sense as the total number of lines in the edited
+file is easily known by *vi* but usually not stored in the developer's brain
+:-).
+
+---
+template: plain
+header: #### Numeric Prefixes (4)
+
+**Very few** commands **store** their numeric prefix to be used as a future
+default.
+
+* `CTRL-D` scrolls down half a screen and
+
+* `CTRL-U` scrolls up half a screen
+
+But this is only the initial default.
+
+--
+
+* *`nn`*`CTRL-D` scrolls down *nn* lines and
+
+* *`nn`*`CTRL-U` scrolls up *nn* lines
+
+.N[
+The numeric prefix is stored also as **common** default for **both** commands.
+]
+
+---
+template: plain
+name: two_problems_for_novice_users
+header: #### Two Problems Causing *vi* to Be Cursed …
+
+… by novice users at least:
+
+--
+
+1. Before a command inadvertently a numeric value is entered._[] and
+  * then used by command following as repetition count.
+
+2. SHIFT-LOCK has inadvertently be activated and
+  * then instead of the "lower case" command (which was intended)
+  * the upper case version is activated (doing something different).
+
+--
+
+The **actual** problem in both cases is this:
+
+* Even if there is some visual indication …
+* … it's too far away from your attention-focus (when editing).
+
+--
+
+.N[
+The fast track through this presentation now
+[skips some pages](#dont_be_overwhelmed) …
+]
+
+… but read them afterwards – they might sometimes safe your day.
+
+.F[:
+This is often caused by hitting one of the "number keys" in the keyboard's
+top row with or without noticing it.
+]
+
+---
+template: plain
+header: #### Unexpected Command Repetition
+
+There are two sub-cases when you unwantedly hit a numeric key prior to a
+command:
+
+.N.center[
+You **may** or **may not** have noticed it.
+]
+
+--
+
+In the first case the cure is simple:
+
+* ESC deletes any numeric command prefix that has been, otherwise …
+
+--
+
+.N[
+**First Responders Notice:**
+
+Undo any unexpected change **immediately** with *vi*'s `u`-command.
+]
+
+--
+
+General Note:
+
+* The `u`-command is your friend, remember this – DON'T PANIC!
+
+---
+template: plain
+header: #### Unexpected SHIFT-LOCK
+
+Remember this:
+
+.N.center[
+**SHIFT-LOCK is generally NOT your friend.**
+]
+
+--
+
+* Not only in *vi* …
+
+* … mostly **never EVER!**._[]
+
+--
+
+* The additional nuisance with *vi* is this:
+
+  * There is a difference between `u` and `U` (upper and lower case),
+  * not a really big one but big enough to further confuse the novice.
+
+And therefore – even as a well-trained *First Responder* acting like
+instructed a few pages before – you may still be (somewhat) surprised.
+
+.F[:
+An exception from the rule is when you can use one hand only for typing,
+maybe because one of your arms is in a plaster cast or needs to hold the
+phone receiver while endlessly talking to some person at the other end of
+the line, to whom you cannot tell how boring he or she is, for politeness,
+financial dependence, or any other reason, and you want to use at least
+**some** of the wasted time to continue your work … (But be sure to operate
+the keyboard softly so to avoid questions like *"What's that noise in the
+background – you don't work at your computer WHILE WE TALK !!!"*)
+]
+
+---
+template: plain
+header: ### Intermezzo
+
+If inadvertent SHIFT-LOCK activation is one your frequent problems,
+
+* consider to de-activate it or change its behavior,
+
+* depending on your OS **there are tools for this**.
+
+--
+
+.N.center[
+Pure software tools, you don't need a pincers or a soldering iron.._[]
+]
+
+.F[:
+In "the old days", before such software tools came in use or were not
+applicable (e.g. on good old *Serial Console Terminals") some people even
+**physically blocked SHIFT-LOCK**, e.g. with small pieces of wood cut from
+matchsticks or toothpicks placed under that "damned key".
+]
+
+---
+template: linkinfo
+name: dont_be_overwhelmed
+graphic: Understanding_vi_and_vim
+header: ### Don't Be Overwhelmed …
+
+How should I remember all these crazy commands?
+
+* Most often just a single letter – or two!
+
+* Why didn't they choose better mnemonics?._[]
+
+* And so many commands just to change some text?
+
+(Isn't just one command to *Insert Text* and another one for *Overwriting*
+sufficient?)
+
+.F[:
+On the fast track this presentation has skipped over the section covering
+the fact that the commands are more systematic as most novices see at first
+glance. If you read this yourself afterwards, be sure not to have overlooked
+these pages or [skip back now](#naming_scheme_for_commands).
+]
+
+---
+template: plain
+header: ### Starting Easy …
+
+Most importantly:
+
+* To start working with *vi*, you **absolutely need** only few commands.
+
+--
+
+* You just won't be as fast as you could get …
+
+* … and use **lots** of unnecessary key-strokes.
+
+--
+
+.N[
+Also the "mental model" of *Command Mode* vs. *Text Input Mode* will suffice
+for the beginning …
+]
+
+… but please:
+
+--
+
+* be prepared to throw that model overboard at a later point;
+
+--
+
+* be willing to learn **one** additional *vi* command every week.
+
+--
+
+.N.center[
+OK?
+]
+
+--
+
+.center[
+(If not, this is your last chance to leave this room :-))
+]
+
+---
+template: plain
+header: #### A Practical Example
+
+There are probably fewer and fewer people in the world who have never ever
+used a computer with some editor program to make a trivial change to a text
+file, say:
+
+.N[
+Replace the occurrence._[] of the city "Mannheim" with "Ludwigshafen" … or
+maybe vice versa.
+]
+
+How do you approach this?
+
+.F[:
+Further assume there are at most two or three places in the text where this
+change has to be applied, so a systematic *"Find & Replace"* will not pay.
+]
+
+--
+
+.N.center[
+Think a moment!
+]
+
+---
+template: plain
+header: ##### OMG! (Actually So Many Ways?)
+
+Given the cursor sits on the first character of the city name you may now:
+
+--
+
+* Delete **all** of the old name, then type the new one in "insert mode".
+
+--
+
+* Or first type the new name in "insert mode", then delete the old.
+
+--
+
+<!-- -->
+
+* Or first in "overwrite mode" replace letters from the old name, then
+  * if the new name is shorter, delete the excess characters,
+  * otherwise, when all of the old name is overwritten …
+    * … switch to "insert mode" …
+    * … then type what remains.
+
+--
+
+.N.center[
+Doing so in *vi* – especially the latter – is cumbersome and inefficient!._[]
+]
+
+.F[:
+Assuming *Mannheim* is to be replaced be *Ludwigshafen* and the **only**
+*vi*-commands to modify text are `R`- and the `i`-command you would use
+**`RLudwigsh␛liafen␛`**.
+If you are lucky enough to know that the `a`-command lets you insert text
+**right** from cursor position this safes you on key-stroke with
+**`RLudwigsh␛aafen␛`**.
+Vice versa, if the new word is shorter – say *Ludwigshafen* is to be replaced
+with *Mannheim* – then the key-strokes were
+**`RMannheim␛lxxxx`**.
+And if you are can quickly recognize length-difference of two word you may
+use **`xxxxRMannheim␛`** (or even **`4xRMannheim␛`** ).
+(But stay tuned, us *vi* users are not those badly disguised editing masochists
+as you might assume right now.)
+]
+
+--
+
+.center[
+If you ever want to come to some speed with *vi* – **FORGET IT!**
+]
+
+---
+template: plain
+header: ##### Doing "Everything at Once"
+
+In a typical *GUI*-based environment there is usually yet another choice:
+
+--
+
+* "Select" – i.e. visually "highlight" – the word to replace._[]
+
+* then just type the replacement (in "insert mode").
+
+
+.F[:
+Usually done just by a double-click with the mouse. When typing first
+character, then all of the selection will be removed and therefore the new
+word will just replace the old – previously selected – one.
+]
+
+--
+.N.center[
+Who of you regularly chooses that latter approach? (Honestly!)
+]
+
+--
+
+The charming effect here is that you actually need not do it differently when
+replacing a shorter word with a longer or a longer with a shorter.
+
+---
+template: plain
+header: ##### Surprise, Surprise
+
+Once more, and again given the cursor sits on the word to be replace,
+
+.pull-left[
+here's how to do it in *vi*:
+* `cwMannheim␛` or
+* `cwLudwigshafen␛`
+]
+.pull-right[
+But how this?
+
+Doesn't it make a difference for *vi* if a short word is replaced with a
+longer one or vice versa?
+]
+
+--
+
+The short answer is: **NO**
+
+--
+
+And the long answer is this:
+
+.N.center[
+If you actually preferred the "select and type"-style described before,
+you were already close to the optimal way of doing things in *vi*.
+]
+
+---
+template: plain
+header: ##### The Beginning of a New Friendship?
+
+Enabling you to always chose the optimal way for *starting "insert mode"*
+is the **Huge Payback** you get for occasionally learning a new command.
+
+--
+
+.N.center[
+Remember your promise?  
+One new command a week?
+] 
+
+--
+
+* OK, the `cw`-command is that command …
+
+* … for **this** week your are home free :-).
+
+--
+
+.N.center[
+Or did this example rather wet your appetite for more?
+]
+
+.F[:
+For the author of this, after seemingly endless years of fruitless fights with
+*vi* – when occasionally forced to use it, as no alternative were at hand –
+"discovering" the `cw`-command actually was the beginning of a new friendshi,
+which only became deeper over the years and lasts until today. But this is long
+ago and far away … (*"Objects in the Rear View Mirror May Appear Closer Than They
+Are …"* – Meat Loaf)
+]
+
+--
+
+.center[
+Then fasten your seat belts!
+
+Nobody to leave the room from now on!!
+]
+
+
+---
+template: plain
+header: ##### But Wait – There's More
+
+Did you ever have a lucky day were you won a lottery …
+
+--
+
+… and yet another one at the very same day?
+
+--
+
+.N.center[
+Today is that day - wait and see!
+]
+
+--
+
+Remember the initial assumption you expected._[] there will be
+
+.pull-left[
+more than one single change
+
+* from *Mannheim*
+* to *Ludwigshafen*
+]
+.pull-right[
+or vice-versa:
+
+* from *Ludwigshafen*
+* to *Mannheim*
+]
+
+So, what do you do after you located the next occurrence to change?
+
+.N.center[
+For *vi* the answer is .
+]
+
+--
+
+.center[
+Yes, actually!
+]
+
+--
+
+.center[.]
+
+---
+template: plain
+header: ##### The Dot-Command
+
+In *vi* you can always
+
+* repeat the last command that caused a change …
+* … presumably at a different location then.
+
+--
+
+.N.center[
+If your friendship with *vi* intensifies, be prepared to use it dotalot!  
+]
+
+--
+
+.center[
+(Ehm: … to use **dot** a **lot** :-))
+]
+
+Another example - assume you want to append a backslash to some lines:
+
+.pull-left[
+Say, turn this …
+```.none
+#define AHHRG\
+  "why do I always seem"
+  " to forget that these"
+  " pesky C macros need"
+  " to be written with"\
+  " a backslash at the end"
+  " to indicate continuation"
+  " lines!"
+```
+]
+.pull-right[
+… into that:
+```.none
+#define AHHRG\
+  "why do I always seem"
+  " to forget that these"
+  " pesky C macros need"
+  " to be written with"\
+  " a backslash at the end"
+  " to indicate continuation"
+  " lines!"
+```
+]
+
+---
+template: plain
+header: ##### Here We Go Again
+
+In *vi* style just
+
+--
+
+* place the cursor in the first line to append a backslash
+--
+
+* (btw:  **anywhere** in this line – not necessarily at the end._[])
+--
+
+* and then (ratataplan)
+--
+
+  * `A\␛j.j.jj.j.`
+
+.N.center[
+Note: this is usually **much** more impressing if demonstrated life!
+]
+
+.F[:
+As the `A`-command always append **at the end of the line** no matter where
+the cursor is place, you can also use <RETURN> to go one line down. (Often
+<RETURN> is the more convenient key only because it is typically larger as
+the other ones and therefore less prone to typos :-)).
+]
+
+--
+
+Again the assumption here is that
+
+* the number of changes you need to make do not justify a full-blown
+  *Find & Replace*
+
+* and/or you want some permanent "visual feedback", e.g. not all the lines
+  are affected.
+
+
+---
+template: plain
+header: ### Summarizing so Far
+
+The following can be constituted:
+
+.N[
+At its core the concept of *vi* is different from most any other text
+editor.
+]
+
+--
+
+A substantial amount of its power comes from
+
+* expressing the extension of a text change._[] before the new
+  text is entered (not *while* this is the case or *afterwards*);
+* also combining *text changes* with *cursor moves* can safe the
+  effort of positioning the cursor to the correct location before;
+
+.F[:
+Of course this refers to the `c`-command that needs to be combined with any
+other command to move the cursor, and therefore this is true also for text
+deletions with the `d`-command.
+]
+
+--
+
+Last not least, both of the above combined may allow
+
+* to use the `.`-command for repeating – basically similar – text 
+  changes
+* at different locations
+  * with a decent amount of visual feedback, but
+  * without employing the full "find & replace" machinery.
+
+---
+template: linkinfo
+graphic: Comparing_vi
+header: ### Time for a Change …
+
+… of the "Mental Model:"
+
+* *vi* is **NOT** operating
+  * either in  
+    *Command Mode*
+  * or in  
+    *Text Input Mode*.
+
+--
+
+* Instead:
+  * each command followed by some "input"-text …
+  * … requires termination with the ESC-key._[] (or just ␛)
+
+.F[:
+There is also an official Unicode symbol for the respective key-top – ⎋ –
+but probably few of you know what this means as most any keyboard labels
+this key-top textually as "Esc". So the use of ␛ to refer to that key will
+be continued throughout that presentation.
+]
+
+---
+template: plain
+header: #### Why is This Helpful?
+
+This may seem to be a minor thing and the effective sequence of keys
+pressed doesn't even change, but it is not at all artificial or needless.._[]
+
+.N.center[
+Viewing the **␛-key as part of the command** when inserting or replacing
+some text trains your brain and automated reflexes to use it
+***often* and *early***.._[]
+]
+
+--
+
+At least two more things follow with hardly any effort to "learn" them.
+
+--
+* You **will not** any longer tend to "forget" to use ␛ when needed
+  * making *vi* treat subsequently typed characters as input
+  * instead as command (as was your intend).
+
+<!-- -->
+
+--
+* You **will** discover more and more chances
+  * to start a change in the "right" way, so that
+  * you can repeat it subsequently with the `.`-command.
+
+.F[:
+Note that the goal is not to think much in advance about all this, it is an
+effect that happens more or less automatically – much like a piano doesn't
+need to explicitly instruct his fingers to hit the right keys, it suffices to
+look at the sheet of music and "just go and play". Furthermore you might even
+notice that throwing the "*vi*-has-modes" model overboard **has an actual
+effect** on how often you use the ␛-key – more on this here.
+]
+
+---
+template: plain
+header: #### So: What is the Default Mode of *vi*?
+
+.pull-left[
+.N.center[
+Novice user:
+]
+
+I'm getting confused!
+
+I though I need to switch to "Command Mode" to enter any of *vi*'s
+editing commands – therefore I diligently hit the ␛-key right before
+any *vi*-command.
+
+So, the default isn't actually "Text Input Mode"?
+
+I'm starting to believe the default might be "Command Mode".
+]
+.pull-right[
+.N.center[
+Power user:
+]
+
+Well, halfway there, but:
+
+Get used to it – no modes in *vi*!
+
+*vi* only has number of commands requiring "additional input" which
+is terminated with the ␛-key.
+
+May I suggest you go back one page and read again?
+
+Once and forever:  
+**THERE ARE NO MODES!**
+]
+
+How to resolve above discussion may partially be just a matter of your
+point of view … but see the next pages before you finally decide.
+
+.N.center[
+Note: Passing lane is open again, feel free to take the
+[fast track](#changing_the_edit_location).
+]
+
+---
+template: plain
+header: #### *vi* Starts up in "Command Mode"
+
+If you want to enter new text in a file after starting *vi*, you have to use
+one of its text insertion commands.
+
+.N.center[
+So – if you consider the *vi*'s "Mode" after start-up as default –
+it's clearly "Command Mode".
+]
+
+But the actual question goes deeper.
+
+--
+
+* Assume you measure and accumulate separately all the time when *vi* is
+  in "Command Mode" and when it is in "Text Input Mode" during a whole session,
+  you probably get an interesting result.
+
+--
+* There are two groups of users:
+
+  * One spends significantly more time with *vi* in "Text Input Mode".
+  * The spends significantly more time in "Command Mode".._[]
+
+--
+
+.N[
+Now make your guess: In which group will you find the Power Users?
+]
+
+.F[:
+So often that group wouldn't call it so.
+]
+
+---
+template: plain
+header: #### Looking Back Into History
+
+[pdp11]: https://en.wikipedia.org/wiki/PDP-11
+
+.N.center[
+Your are now entering: Scenic Historic *vi* Road.
+]
+
+So plan for some extra time and enjoy a beautiful journey through
+the good old times of Al Capone's Chicago._[]
+
+* „Main Frames“ and
+
+* „Mini“-Computers – [look!](pdp11)
+
+Or branch here to drive back to the [fast track](#changing_the_edit_location).
+
+.F[:
+Well, not quite … but from our Y2K+ perspective now actually closer as the
+other way round.
+]
+
+---
+template: plain
+header: #### The Early Days
+
+[teletype]: https://en.wikipedia.org/wiki/Teletype_Corporation#History
+[glasstty]: https://en.wikipedia.org/wiki/Computer_terminal
+
+There once was a time when all interaction with computers wasn't via a GUI,
+and most not even a via a "Dumb Terminal:
+
+* Instead all the interaction was via „Teletypes“ - [look!](teletype)
+
+--
+
+In that time "Text Editing" was actually done using that kind of devices …._[]
+
+* … until came „Glass TTYs“ – [look](glassttys)!
+
+.F[:
+And the users even loved it because it was a huge advantage over punching paper
+cards and feed them through a mechanical card reader … just imagine: you
+actually throw your stack of cards on the floor and all the "lines" of your
+fine program are garbled after recollecting the cards.
+]
+
+--
+
+Though also the "Serial Interface (aka. RS-232) came up in these days, the very
+first of these were *faaaaaar* away from what you would call a "dumb terminal"
+today.
+
+* Such devices more or less were electronic equivalents of Teletypes …
+
+--
+* … say: teletypes without paper, but one day …
+
+--
+* … the electronics engineers designing such devices introduced
+
+--
+
+.center[
+… ratataplan …
+]
+
+---
+template: plain
+header: ##### The Freely Positionable Cursor
+
+[dec_vt102]: http://terminals-wiki.org/wiki/index.php/DEC_VT102
+[dec_vt220]: http://terminals-wiki.org/wiki/index.php/DEC_VT220
+[swtpc_8212]: http://terminals-wiki.org/wiki/index.php/SWTPC_8212
+[TSC]: https://en.wikipedia.org/wiki/Technical_Systems_Consultants
+[UniFLEX]: https://en.wikipedia.org/wiki/UniFLEX
+
+The capability to write new text on **any** position of the screen paved the
+path for "full screen editing".
+
+* One of best known beasts of that time was the DEC VT100 – [look!](dec_vt102)
+
+--
+
+As time went by, and after some cycles of improvements …
+
+* … the DEC VT220 was another very popular one – [look!](dec_vt220)
+
+--
+
+* And here's yet another one from around 1980._[] – [look!](swtpc_8212)
+
+.F[:
+Its case was beautifully manufactured from plywood … really! It happens that
+this was the device with which the author of this presentation made his first
+steps unto earning money as software developer … using a Unix-like OS from
+[TSC] named [UniFLEX] … though continuing on this road would lead to a really
+large detour …
+]
+
+--
+
+.N.center[
+About around that time also was *vi*'s natal hour.
+]
+
+---
+
+template: plain
+header: ### (Current End of Scenic Road)
+
+.W[
+Sorry, scenic historic road ends here!
+
+Construction work will be continued if time allows.
+]
+
+.center[
+(Scotty – beam them up to the [fast track](#changing_the_edit_location).)
+]
+
+<!--
+That "tradition" has a simple historic reason: the early *Terminal Devices* did
+not provide any thing else to indicate a "current screen position" – and as
+later *Terminal Emulator Software* most often faithfully modelled just the
+capabilities of some earlier piece of hardware, until today it is typical that
+*vi* displays the editing location by marking a whole character.
+-->
+
+---
+template: plain
+name: changing_the_edit_location
+header: ### Moving the Edit Location
+
+Basically there are two different cases:
+
+--
+* Keep the screen window into the file static and
+
+  * re-position the cursor relative to that window.._[]
+
+.F[:
+If you are interested in this look-up the *vi* commands
+`H` (= high), `M` (= mid), and `L` (= low).
+]
+
+--
+
+* Move the cursor to a new edit location in the file, and
+
+  * keep the screen window into the file unchanged  
+    – if the new position is already visible;
+  * or move the screen window into the file
+    – so that the new position becomes visible.
+
+.N.center[
+The second case is by far more interesting.
+]
+
+--
+
+* Not only because *vi* provides much more commands for it …
+* … much more as **all** these move can be combined with *vi*'s
+  * `c`-command – *change* text up to the target of the move, and
+  * `d`-command – *delete* text up to the target of the move
+
+---
+name: learn_vi_incrementally
+template: linkinfo
+graphic: Understanding_vi_and_vim
+header: ### Learning *vi* Incrementally
+
+Novice User:
+
+* So it seems I still need to learn quite a lot?
+
+Power User:
+
+* Yes and No.
+
+Novice User:
+
+* How That?
+
+Power User:
+
+* Just do it incrementally.
+
+Novice User:
+
+* Well … then …  
+* In which order?
+
+
+---
+template: plain
+header: #### Understanding the Cursor
+
+Until now it was avoided to be ultimately precise what for *vi* is the
+
+* current editing location and
+
+* how it relates to the Cursor
+
+.N.center[
+The basic problem is that traditionally._[] *vi* uses a  
+*Block* or *Underline Cursor*.
+]
+
+--
+
+* The mental model of an "editing location" that is a *whole character*  
+  – in contrary to a position *in between two characters* – necessitates
+
+  * one command to start text insertion **on its left**
+  * one command to start text insertion **on its right**
+
+.center[
+Shortcut for [fast track](#modifying_text_first_commands)
+starts here.
+]
+
+---
+template: plain
+header: ##### Even More Understanding the Cursor
+
+The question of course is:
+
+.N.center[
+Then why *vi* doesn't just use a *I-Beam Cursor* to mark the point in
+between two characters as "editing location"?
+]
+
+While part of the answer is given during the tour on the
+[Scenic Historic *vi* Road] …
+
+--
+
+… the other part here:
+
+* Even with a hair cursor between two characters a similar problem would occur
+  with respect to a "current line" as part of for the current editing
+  location.
+
+* So similarly – and symmetrically – there are sometimes two versions of
+  commands of which
+
+  * one affects the line **above the current** one,
+  * one affects the line **below the current** one.
+
+---
+template: plain
+header: ##### Editing Location in Empty Lines
+
+A final – more "philosophic" as "practical" question is this:
+
+.N.center[
+Which is the "current character" in an otherwise empty line?
+]
+
+--
+
+The answer is that empty lines are somewhat special:
+
+* The "current edit location" in such lines is no specific character.
+
+* The commands to insert "left" and "right" of it have the same effect!
+
+Most any *vi* users considers this to be a real problem.._[]
+
+.F[:
+And maybe even some seasoned *vi* users start thinking about that question for
+the first time now. For that group – the *vi* gurus – and also those who would
+like to start an apprenticeship to finally get part of that group, there is yet
+another question: How does handle *vi* completely empty files, i.e. files in
+which there is not even a real "current line"? Which finally leads to the
+challenge: Use *vi* to create a file holding nothing but exactly one empty line
+– or in other words: a file with no content but one single newline character
+(or depending on your OS just one single ␊␍ or ␍␊).
+]
+
+---
+template: plain
+name: modifying_text_first_commands
+header: #### Inserting Text – First Commands
+
+A sensible command set for *vi* novices is this:._[]
+
+* `i` – insert text **before** the cursor – memorize as: i = *insert*
+
+* `a` – insert text **after** the cursor – memorize as: a = *append*
+* `A` – append text at the end of line (also memorize as *append*)
+
+.F[:
+To insert completely new lines you can use this:  
+**`A⏎first line⏎another line⏎…more lines…⏎last␛`**
+]
+
+--
+
+While this is sufficient to do *any text insertion*, to learn – and apply –
+the following two early is also useful:
+
+* `O` (upper case letter) – insert new line **above** the cursor
+
+* `o` (lower case letter) – insert new line **below** the cursor
+
+--
+
+.N[
+**Aide-memoire for the latter two:**
+
+Much like the wide arrow (⇧) on the SHIFT-key points *upwards*, the
+*upper case* version (`O`) has its effect *upwards*.
+]
+
+
+---
+template: plain
+header: #### Deleting Text – First Commands
+
+A sensible command set for *vi* novices is this:._[]
+
+* `x` (lower case letter) – delete character under cursor
+
+* `dd` – delete line holding the cursor
+
+.N[
+Actually many *vi* users don't go far beyond this for all of their life …
+]
+
+--
+
+… and instead of learning more ways to do deletions, rather get quickly
+accustomed to the
+
+* *Multiple Line Delete Technique*
+
+explained on the next pages – including motivating example.
+
+--
+
+.N.center[
+Feel free to overtake now and go to the result on the
+[fast track](#best_way_to_delete_multiple_lines).  
+]
+
+---
+template: plain
+header: #### Deleting Multiple Lines
+
+The motivation for this technique is rather a potential problem with:
+
+.N.center[
+Falling out of sync during: `ddddddddddd`
+]
+
+* The above is the obvious sequence of key-presses to delete … 
+
+* … how many lines – excactly?
+
+--
+
+* Counting precisely reveals there are
+  * 11 occurrences of the letter `d`,
+  * therefore 5 lines have been deleted (so far).
+
+.N.center[
+Presumable the user had stopped hitting the `d`-key … **but why?**
+]
+
+--
+
+* Because the visual feedback on the screen indicates
+
+  * all lines to be purged are gone …
+  * … though there is still a single `d` lurking around …
+  * … waiting …
+
+---
+template: plain
+header: ##### The Revenge Of the Left-Over `d`
+
+As the user has achieved its goal (purging 5 lines)
+
+* he or she starts thinking what to do next
+
+  * … with the `d` still lurking around …
+  * … waiting … patiently … silently
+
+Now assume it's not quite the luckiest day of our user …
+
+* … and after some more thinking the decision is made:
+
+.N.center[
+The next change has to take place near the end of the file.
+]
+
+* Now time has come for the lurking `d` … right the `G`-key is hit:
+
+--
+
+.center[
+**IN THE POOR USERS BRAIN ALL ALARMS GO OF  
+AT THE VERY SAME MOMENT**._[]
+]
+
+.F[:
+It would surely make an interesting experiment if the users brain could be
+"watched" with some form of EEG or an MRI scanner at that very moment …
+]
+
+---
+template: plain
+header: ##### *vi* Deleted EVERYTHING up to the End of My File
+
+Well, *vi* I did what it is expected to do:
+ 
+* `d` is *delete* up to target of the move following,
+
+* `G` is a move to the end of the file,
+
+* and … (fill in the blanks yourself).
+
+--
+
+.N.center[
+**DON'T PANIC**
+
+----------------------------------------------
+
+Remember your training as a good first responder!
+
+(Stay cool … who is your friend?)
+]
+
+--
+.center[
+<span style="font-size: 999%;">u</span>ndo
+]
+
+---
+template: plain
+name: best_way_to_delete_multiple_lines
+header: ##### Best Way to Delete Multiple Lines
+
+The best way to delete multiple lines with direct feedback is this:
+
+.N.center[
+Say, five lines: `dd....`._[]
+]
+
+.F[:
+Note that five lines are deleted and therefore there are **four** dots
+following the `dd`. Though, hardly anybody will get this ever wrong, as each
+time the `.`-key is hit here is immediate visual feedback and hitting the
+`.`-key will usually be stopped if the screen displays the desired result.
+]
+
+--
+
+.center[
+Why?
+
+(Because its less typing than 10 `d`-s would pass as answer too :-))
+]
+
+--
+
+* Because the first `dd` is hard to get wrong … 
+
+* … same for each of the following repetitions …
+
+* … and …
+
+--
+
+.N.center[
+**… there never is an unsatisfied single `d` lurking around.**
+]
+
+---
+template: plain
+name: moving_around_general_aspects
+header: #### Moving Around – General Aspects
+
+Experience shows few of the many moves need to be learned by heart because
+they are necessary or especially useful in day-to-day's work.
+
+* First of all (of course)
+  * the cursor moves with `l`, `h`, `j`, and `k`,
+  * or alternatively with the cursor keys._[] (←, ↑, →, ↓)
+
+.F[:
+The usefulness of the default mapping of the cursor-keys and a possible
+variations is still to be discussed.
+]
+
+--
+
+* Occasionally also (but no need to learn this with priority):
+  * `w` – first character of next word
+  * `$` – to last character of line
+  * `0` (digit zero) – first character of line
+  * `^` – first non white-space character of line
+
+.N.center[
+A typical use of the last group is combined with `c` or `d`.
+]
+
+---
+template: plain
+header: #### Combinations and Short-Cuts
+
+To save key-strokes (and also create chances for repetition at a different
+location using the `.`-command:._[]), there are useful combinations of
+
+* cursor positioning with insertions, and
+* insertions and deletions with moves.
+
+The following table is ordered (subjectively) by usefulness:._[]
+
+| Description                         | = Sequence                    | Short-Cut                    |
+|:------------------------------------|:------------------------------|:-----------------------------|
+| append *any text* at end of line    | **`a`** *`any text`* **`␛`**  | **`A`** *`any text`* **`␛`** |
+| change word to *any text*           | **`cw`** *`any text`* **`␛`** | -                            |
+| change to end of line to *any text* | **`c$`** *`any text`* **`␛`** | **`C`** *`any text`* **`␛`** |
+| delete to end of word               | **`dw`**                      | -                            |
+| delete to end of line               | **`d$`**                      | **`D`**                      |
+| replace characters "1:n"            | **`s`** *`any text`* **`␛`**  | -                            |
+| replace characters "m:n"            | **`R`** *`any text`* **`␛`**  | -                            |
+| replace characters "1:1"            | **`r`** *`c`*                 | -                            |
+| replace current line                | **`S`** *`any text`* **`␛`**  | -                            |
+
+.F[:
+So, if your goal is still *"one new command a week"*, work through the table
+top to bottom …
+]
+
+---
+template: plain
+header: #### Again: One Command a Week
+
+.N.center[
+Remember your promise: *One new command a week*
+]
+
+Or Alternatively:
+
+* Consult the command overviews presented here from time to time.
+
+* Check and decide if something you find but did not apply until now might be helpful.
+
+* Then try to integrate it in your regular work with *vi*.
+
+---
+template: plain
+header: #### Don't Get Overwhelmed
+
+Any time the feeling rises, *vi*'s rich command set is overwhelming or even
+confusing, be asserted:
+
+* It is still a valid approach learn *vi* incrementally.
+
+* You will anyway._[] work with *vi* now in a much improved way.
+
+.F[:
+The simple reason is that you made it up to here … (assuming you did not only
+flip through the pages but developed some understanding for the concepts
+explained).
+]
+
+--
+
+And remember:  
+
+.N.center[
+The `␛`-key is nothing but the termination of commands inserting text.
+]
+
+Or alternatively:
+
+* If relinquishing the "Mode Based Model" still feels uncomfortable,
+
+* try to keep your *vi*-session in "Command Mode" most of the time.
+
+---
+template: linkinfo
+graphic: Understanding_vi_and_vim
+name: context_based_positioning
+header: ### Context-Based Positioning
+
+* Within current line back up to or incl. character *`c`*:  
+  * **`T`** *`c`* or **`F`** *`c`*,  
+* As before, but forward:
+  * **`t`** *`c`* or **`f`** *`c`*
+* Repeat with **`,`** or **`;`** (same or opposite direction)
+
+<!-- -->
+
+* Within whole file back to start of *`pattern`*:._[]  
+  * **`?`** *`pattern`* **`⏎`**  
+* As before, but forward:  
+  * **`/`** *`pattern`* **`⏎`**
+* Repeat with **`n`** or **`N`** (same or opposite direction)
+
+.F[:
+Pattern searches are based on (*vi*'s flavour of) regular expressions and have
+ways to modify them, e.g. they can be made case insensitive or to go up or down
+*n* lines from match to final target.
+]
+
+---
+template: plain
+header: #### Character Based Search
+
+Move to character *`c`* in current line:
+
+.pull-left[
+* Towards *End of Line*:
+  * `t`*`c`* – excluding *`c`*
+  * `f`*`c`* – including *`c`*
+
+<!-- -->
+* Repeat with:
+  * `;` – same direction
+  * `,` – opposite direction
+]
+.pull-right[
+* Towards *Begin of Line*:
+  * `T`*`c`* – excluding *`c`*
+  * `F`*`c`* – including *`c`*
+
+<!-- -->
+* Repeat with:
+  * `;` – same direction
+  * `,` – opposite direction
+]
+
+If character *`c`* is not found in the given direction, no move takes place.
+
+---
+template: plain
+header: #### Character Based Search
+
+Of course any *Character Based Search* can be combined with
+
+* `d` – to **delete** up to target and
+* `c` – to **change** up to target.
+
+.N.center[
+Remember that the `w` in the commands *delete word* or *change word*,  
+i.e.  `d`**`w`** or `c`**`w`** *`any text`* `␛`  
+is also just a move and therefore a realization of the same principle.._[]
+]
+
+--
+
+.pull-left[
+* Delete up to vertical bar:
+  * `dT|` – direction begin …
+  * `dt|` – … or end of line
+
+<!-- -->
+* Delete including hash):
+  * `dF#` – direction begin …
+  * `df#` – … or end of line
+]
+.pull-right[
+* Change next semicolon:
+  * `ct;`*`any text`*`␛` – (excl.)
+  * `cf;`*`any text`*`␛` – (incl.)
+
+<!-- -->
+* Change to previous dash:
+  * `cT-`*`any text`*`␛` – (excl.)
+  * `cF-`*`any text`*`␛` – (incl.)
+]
+
+.F[:
+Actually, if by observing the behaviour of *vi* you try to develop and exactly
+spell out the precise rules for the move target for `w` and the extent of the
+affected range for `cw` and `dw`, the result is that the two commands do
+**not** affect white-space after a word, which is otherwise – with a plain
+`w`-move – skipped over. So from the view-point of fully orthogonal combination
+for these two commands and a move there is an inconsistency … (which on the
+other hand is pragmatic and very useful too).
+]
+
+---
+template: plain
+header: #### Match Pattern Based Search
+
+Move to location matching *`pattern`* – potentially beyond current line.
+
+.pull-left[
+* Towards *End of File*:
+  * `/`*`pattern`*`⏎` – (typical use._[])
+
+<!-- -->
+* Repeat with:
+  * `n` – same direction
+  * `N` – opposite direction
+  * `?⏎` – towards *Begin of File*
+  * `/⏎` – towards *End of File*
+]
+.pull-right[
+* Towards *Begin of File*:
+  * `?`*`pattern`*`⏎` – (typical use._[])
+
+<!-- -->
+* Repeat with:
+  * `n` – same direction
+  * `N` – opposite direction
+  * `?⏎` – towards *Begin of File*
+  * `/⏎` – towards *End of File*
+]
+
+The *target of the move* is the location **directly before** the point where
+the pattern starts to match.
+
+.N.center[
+This is especially important when a match pattern based search is combined
+with `c` (change up to target) and `d` (delete up to target).
+]
+
+.F[:
+More elaborate usage forms will be covered later.
+]
+
+---
+template: plain
+name: combining_context_based_positioning
+header: #### Context-Based Positioning Combined With `c` and `d`
+
+.N.center[
+If you are in a hurry you may want to change to the
+[fast track](#search_and_replace).
+]
+
+Whenever a *Match Pattern Based Search* determines
+
+* the range of lines to apply a change
+* the range of lines to apply a deletion
+
+it is possible to modify the target's location with a *distance*:
+
+| Match Pattern                       | Distance                                       |
+|:------------------------------------|:-----------------------------------------------|
+| **`/`** *`pattern`* **`/0`**        | none (only line containing the match included) |
+| **`/`** *`pattern`* **`/+`** *`nn`* | *nn* lines *down* from line containing match   |
+| **`/`** *`pattern`* **`/-`** *`nn`* | *nn* lines *up* from line containing match     |
+| **`?`** *`pattern`* **`?0`**        | none (only line containing the match included) |
+| **`?`** *`pattern`* **`?-`** *`nn`* | *nn* lines *up* from line containing match     |
+| **`?`** *`pattern`* **`?+`** *`nn`* | *nn* lines *down* from line containing match   |
+
+* Without a distance match patterns refer to a target location **within** the
+line containing the match.
+
+---
+template: plain
+name: searching_is_light_weight
+header: ### Searching Is Light-weight
+
+In other editors searching for given location by specifying a pattern appears._[]
+to fire-up heavy machinery.
+
+.pull-left[
+* Not so in *vi* just type
+  * `?` – (search upwards) or
+  * `/` – (search downwards)
+* followed by a pattern (and ⏎)
+
+---------------------------------
+* If necessary repeat with
+  * `n` – same direction
+  * `N` – opposite direction
+]
+.pull-right[
+Typos in the pattern can be directly edited, as the search pattern is displayed
+in the bottom line (`?` or `/` indicates direction).
+
+Also, with the `␛`-key a search can be cancelled at any time before being
+executed.
+]
+
+.F[:
+This is **not** to claim that the search operation is actually expensive then.
+The point is that – contrary to a simple cursor move (e.g. with ←, ↑, →, ↓, ⇤,
+⇥, etc.) – often a dialog pops up for text entry (sometimes with two text entry
+fields, one for the search pattern, one for an replacement string), a number of
+check-boxes (e.g. whether the pattern is to be taken as regular expression,
+whether upper and lower case should honored, etc.), several buttons to actually
+execute the search (just search, search and replace, replace next, replace all)
+or cancel it … all in all emphasizing the idea this is a tool mainly for
+systematic text replacement, not for a simple change of the editing location.  
+**Of course, with any other editor too you may develop the habit to change the
+edit location with searches instead of (comparably minimal) baby-step moves.**  
+Finally – it may be a minor point and somewhat subjective, but – avoiding
+massive pop-ups and dialogues for doing searches helps to keep the focus of
+attention at the text being edited in *vi*.
+]
+
+
+---
+template: plain
+name: searching_is_light_weight
+header: #### More on Search Patterns
+
+Search patterns are *Regular Expressions* and hence very flexible.._[]
+
+.F[:
+If you know regular expressions from other tools or programming languages, *vi*
+uses its own flavour (or "dialect") which has its pro's and con's and will be
+be covered in more detail elsewhere.
+]
+
+Nevertheless, compared to incremental moves with the cursor keys it is often
+easier to move the edit location by specifying a search pattern.
+
+.N.center[
+Try it out for some time – maybe you fall into that habit, maybe not.
+]
+
+--
+
+Of course, moving the edit location with search patterns works best if there is
+a short, characteristic string to look for.
+
+* Some few characters have a special meaning, but not that many.
+
+--
+
+<!-- -->
+* The pattern may even contain spaces (not requiring quotes)
+  * A search to locate the line above could just be: `?in spa⏎`
+
+--
+
+<!-- -->
+* Quoting is **required** for a character to represent itself in a pattern for
+  * `?` when searching up, `/` when searching down (use: `\?` resp. `\/`)
+  * furthermore – shown already quoted – use: `\.`, `\[`, `\]`, `\*`, `\\`  
+    (for *dot*, *square brackets*, *asterisk*, and *backslash*)
+
+---
+template: plain
+name: search_and_replace
+header: ### Search and Replace
+
+In many other editors just *Find* and *Find & Replace* are close cousins.
+
+So in *vi*, (systematic) replacing is a simple extension of searching only:
+
+* **`:%s/`** *`pattern`* **`/`** *`replacement`* **`⏎`**
+
+--
+
+By default only one match per line is replace, but repeated replacement is just
+a key-press away:._[]
+
+* **`s:%/`** *`pattern`* **`/`** *`replacement`* **`/g⏎`**
+
+--
+
+.N.center[
+The leading `:%` above applies the search with replace on the whole file.  
+]
+
+.center[
+Limiting replacement to a given range of lines will be shown later.
+]
+
+--
+
+--------------------------------------------------------------
+
+.center[
+(If time pressure starts building up, consider to change to the
+[fast track](#fast_track_reentry).)
+]
+
+.F[:
+Well, actually two. This is because the examples usually strive for not
+specifying any key-press that is optional, which has also been the case for the
+initial examples, which are equivalent to:  
+**`:%s/`** *`pattern`* **`/`** *`replacement`* **`/⏎`**
+]
+
+---
+template: plain
+name: controlled_search_and_replace
+header: ### Controlled Search and Replace
+
+Sometimes it may be too hard to specify the search pattern so that it matches
+only where intended to match.._[]
+
+.F[:
+Maybe you are either a bit lazy to come up with the "perfect" pattern, or you
+are not sure whether your pattern is perfect, or a perfect pattern isn't just
+feasible because only some occurrences need to be replace.
+]
+
+Again, the solution is just a(nother) key-press away:
+
+* **`:%s/`** *`pattern`* **`/`** *`replacement`* **`/c⏎`** – (interactively)
+
+--
+
+.N.center[
+**Aide-memoire:** `c` = confirm
+]
+
+--
+
+Note that `c` is a *modifier* that e.g. can be combined with `g`.
+
+* **`:%s/`** *`pattern`* **`/`** *`replacement`* **`/gc⏎`** – (+ replace all matches in a line)
+
+--
+
+---------------------------------------------------------------
+(If *Find & Replace* is not a topic for you, just change to the
+[fast track](#fast_track_reentry).)
+
+---
+template: plain
+name: more_modifier_flags
+header: #### More Modifier Flags
+
+[neovim]: https://github.com/neovim/neovim
+
+The order of modifiers does not matter and there some more:._[]
+
+* `i` – *search* case-insensitive
+* `I` – *replace* case-sensitive
+
+.F[:
+Some are actually *vim* extensions but as most any *vi* user today actually
+uses *vim* and/or *vim* competitors or re-writes (like[neovim]) will surely
+**not** strip away useful functionality, such extensions over original *vi*
+are not specially marked-up. (If you happen to work with a really "old" or
+even "original" version of *vi* you will notice anyway, as it then just
+wouldn't work.)
+]
+
+--
+
+------------------------------------------------------------------------
+Note that all in all *Find & Replace* is a large topic, but ripping it apart
+or separating it into "basic" and "advanced" will shadow a good part of its
+connectedness.
+
+Maybe for many readers presenting a slightly advanced example first may make
+a good motivation or even all to be said in a presentation mainly addressing
+novice users.
+
+.N.center[
+Many of the following pages offer link to skip ahead on the
+[fast track](#fast_track_reentry).
+
+------------------------------------------------------------------
+The landing spot then exactly is such a slightly advanced example.
+]
+
+---
+template: plain
+name: limiting_the_replacement_range
+header: #### Limiting the Replacement Range
+
+To limit the range of a search, instead of `%` use a comma-separated
+range:
+
+* **`:10,20s/`** *`pattern`* **`/`** *`replacement`* **`⏎`**
+
+While the above is probably obvious, an especially powerful feature is the fact
+that the range may also be a specified via patterns:
+
+* **`:?== BEGIN ==?+1,/== END ==/-1/s`** *`pattern`* **`/`** *`replacement`* **`⏎`**
+
+.N.center[
+What would you expect from this?
+]
+
+--
+
+Substitutions are done
+
+* from the first line *after* (`+1`) a line containing `== BEGIN ==`
+* up to the last line *before* (`-1`) a line containing `== END ==`
+
+--
+
+Of course, search limits can be written in any combination of line numbers and
+patterns, and there are some more useful shortcuts, like `.` for the current
+line:
+
+* **`:.,/== END ==/-1s/`** *`pattern`* **`/`** *`replacement`* **`⏎`**
+* **`:?== BEGIN ==?+1,.s/`** *`pattern`* **`/`** *`replacement`* **`⏎`**
+
+---
+template: plain
+name: limiting_the_replacement_range
+header: #### Single Line Range
+
+If the `s`-command._[] is used without a range, it defaults to the current
+line (which might alternatively be specified as dot).
+
+.F[:
+Very alert readers might frown now –  
+*"The `s`-command, wasn't that something completely different?"*  
+*"Then how come it is here called – and in recent examples used as –
+*Find & Replace*?"*  
+The truth is this: *vi* actually is **two editors**, with *vi* as a full screen
+front-end operating on top of the line-oriented editor *ex*. In *vi* there is a
+`:`-command constituting the interface to all the commands implemented in *ex*.
+Most *ex*-commands start with one or two (comma-separated) line references –
+for which there are several valid forms – followed by an *ex*-command. So,
+*vi*-command uses the `s` is to replace he character under the cursor with as
+many characters typed subsequently (up to ␛), while as *ex*-command '/' it is a
+search with optional replace.
+]
+
+There are perfectly valid use cases, such as:
+
+* `:s/-/=/g⏎` – turning a line of minus signs into equals signs, i.e.
+  * `--------------------------------------------`
+  * `============================================`
+
+
+.N.center[
+Or more generally:  
+When a change is to be applied many times in the same line.
+]
+
+--
+
+.center[
+(Getting bored with *Find & Replace*? Change to the [fast track](#fast_track_reentry)!)
+]
+
+---
+template: plain
+header: #### Further Restricting Replacement
+
+As shown earlier systematic replacement can be limited to a range, which was at
+one stretch then, but it may also be discontinuous.
+
+This necessitates the help of the `g`-command which works as follows:
+
+1. A set of lines matching a given pattern is selected.
+
+2. To each of these lines a replacement is applied. 
+
+So its basic uses looks like this:._[]
+
+* **`:g/`** *`select-pattern`* **`/s/`** *`match-pattern`* **`/`** *`replacement`* **`⏎`**
+* **`:g/`** *`select-pattern`* **`/s/`** *`match-pattern`* **`/`** *`replacement`* **`/c⏎`**
+* **`:g/`** *`select-pattern`* **`/s/`** *`match-pattern`* **`/`** *`replacement`* **`/gc⏎`**
+* …
+
+.F[:
+Remember: *vi* was developed as full-screen front-end for the line-based editor
+*ex*. Again `g` is a command of the latter and follows the usual rule that to
+its left a range can specified. Contrary to most other *ex*-commands the
+default range is not the current line (`.`) but the whole file (`1,$` or just `%`).
+]
+
+--
+
+-------------------------------------------------
+.center[
+(Now bored with *Find & Replace*?
+Change to the [fast track](#fast_track_reentry)!)
+]
+---
+template: plain
+header: #### More On Global Substitutions
+
+The `g`-command has a complement `v`, which negates the select-pattern:._[]
+
+* **`:v/`** *`de-select-pattern`* **`/s/`** *`match-pattern`* **`/`** *`replacement`* **`⏎`**
+* **`:v/`** *`de-select-pattern`* **`/s/`** *`match-pattern`* **`/`** *`replacement`* **`/c⏎`**
+* **`:v/`** *`de-select-pattern`* **`/s/`** *`match-pattern`* **`/`** *`replacement`* **`/gc⏎`**
+* …
+
+Now the text-replacement will be applied to all lines **not** matching
+the specified pattern (which hence was named *de-select-pattern* above).
+
+.F[:
+The command `g` may also be spelled out as `global` (or any abbreviation
+between the two forms) while the `v` command has not spelled-out form but actually
+abbreviates the Latin word word [vel]. Instead of `v` also `g!` may be used.
+]
+
+[vel]: https://en.wiktionary.org/wiki/vel
+
+--
+
+--------------------------------------------------------------------
+(tl;dr? – Chose next entrance to [fast track](#fast_track_reentry).)
+
+---
+template: plain
+header: ### More Global Editing
+
+Finally, `g` and `v` are not limited to be combined with `s`.:
+
+.N.center[
+`g` and `v` based line-selections can prefix most *ex*-commands.
+]
+
+The default is to **`p`**`rint` – i.e. just show – the selected or de-selected
+lines:
+
+* `:v/^#/⏎` – show all lines **except** the ones starting with `#`
+* `:g/##CR:08-15##/⏎` – show all lines containing `##CR:08-15##`._[]
+
+.F[:
+As slash and asterisk are special in (select) patterns they both need to be
+quoted to stand for themselves. So looking up (or more generally applying some
+*ex*-command) – to all lines containing `/*CR:08-15*/` (i.e a pattern enclosed
+in a C-style comment) you need this: `:g/\/\*CR:08-15\*\//⏎`
+]
+
+--
+
+Not to open a whole new box – the set *ex*-commands – the demonstration of this
+feature is limited to a typical use case:
+
+* `:g/##CR:08-15##/d⏎` – delete all lines containing `##CR:0815##`
+* `:global/##CR:08-15##/delete⏎` – (as before, more verbose)
+
+--
+
+--------------------------------------------------------------------------
+.center[
+Still with us – systematic replacement **is a hot-spot** of your interest?  
+So even now you probably **not** want to change to the
+[fast track](#fast_track_reentry)?
+]
+
+
+---
+template: plain
+name: try_first_then_apply
+header: #### Try First, then Apply
+
+A possible (cautious) approach for systematic replacements is to …
+
+* first try on current line
+  * `:s/Ludwigshafen/& am Rhein/ – appends "am Rhein"`._[]
+
+.F[:
+As a minor leap ahead the replacement pattern contains a back-reference. In
+this case it is simply the whole search pattern and as that does not contain
+any special characters but is an exact match, the example is the same as:
+`:s/Ludwigshafen/Ludwigshafen am Rhein/⏎`
+]
+
+--
+
+* check result for correctness
+* then
+  * `u` – (Why? Hint: only necessary because this case is a bit special.)
+
+<!-- -->
+
+* and finally:
+  * `:%s⏎` – repeat last substitution for whole file, **or**
+  * `:%sg⏎` – (as before, with multiple substitutions per line)
+
+<!-- -->
+
+* or in a controlled way:
+  * `:%sc⏎` – repeat last substitution for whole file, **or**
+  * `:%scg⏎` – (as before, with multiple substitution per line)
+
+---
+template: plain
+name: fast_track_reentry
+header: ### Advanced Replacement Techniques
+
+If you followed the "slow track" you will already have seen a number of
+powerful techniques for systematic edits.
+
+Otherwise:
+
+.N.center[
+Fast Track Re-Entry Point
+]
+
+--
+
+* Following is one more example for the power of *vi*'s *Find & Replace*.
+
+* Maybe it wets your appetite if you arrived here via the "fast track".
+
+--
+
+-------------------------------------------------------------------------------
+
+.center[
+(In case you wanna go back: [Beam them up, Scotty](#search_and_replace)!)
+]
+
+---
+template: plain
+name: back_references_in_replacement
+header: #### Back-References in Replacements
+
+A powerful feature of *vi*'s systematic replacements is to (re-) use parts of
+the actual text matching certain parts of the pattern in the replacement.
+
+* You may enclose (up to 9) parts of the pattern in quoted parentheses
+* and in the replacement **refer back** to what actually matched
+  * with special place-holders `\1`, `\2`, … `\9`
+  * (or `&` as a special case for the full match)
+
+.pull-left[
+Assume a (long) list like below …
+```
+Bildschirm - Screen
+Maus - Mouse
+Tastatur - Keyboard
+```
+]
+.pull-right[
+… is to be transposed into this:
+```
+Screen - Bildschirm
+Mouse - Maus
+Keyboard - Tastatur
+```
+]
+
+<!-- -->
+.N.center[
+`:%s/\(.*\) - \(.*\)/\2 - \1/⏎` – (can you explain …?)._[]
+]
+
+--
+
+.F[:
+**Turn:** *anything (prepared as back-ref), space, minus, space, and again anything
+(prepared as back-ref)*  
+**Into:** *second back-ref, space, minus, space, and first back-ref*  
+And the above with cautiously using "*try first, then apply*":  
+`:s/\(.*\) - \(.*\)/\2 - \1/⏎`  
+`:+1,$s⏎` (or `↓:.,$s⏎`)
+]
+
+---
+template: linkinfo
+graphic: Understanding_vi_and_vim
+name: nobody_is_perfect
+header: ### Nobody is Perfect
+
+What typically can be *undo*-ne
+and eventually *redo*-ne is:
+
+* Changes to the text being edited
+
+* Moving the edit location
+
+* (as a *vim* extension._[])  
+  Re-establish last visually marked area
+
+* (not in the graphic)  
+  Abort command before execution
+
+.F[:
+The most important extensions *vim* has over *vi* – from a subjective point of
+view – are covered in the second part of this presentation.
+]
+
+---
+template: plain
+name: undoing_and_redoing_things
+header: #### Undoing and Redoing Things
+
+To understand the sometimes substantial differences between *vi* and most of
+the other editors in widespread use today, the explanation is "historical",
+e.g.:
+
+.pull-left[
+Originally *vi* used:
+
+* `u` for *Undo* and
+* `CTRL-R` as *Redo*
+]
+.pull-right[
+Later the following evolved:
+
+* `CTRL-Z` is *Undo* and
+* `CTRL-Y` is *Redo*
+]
+
+--
+
+As long as nobody knew and regularly worked with both – *vi* and some other
+editor following the "right" :-) path – the difference doesn't matter much.
+
+.N.center[
+What choices had *vi* (or *vim*) when the above was not any more true?
+]
+
+--
+
+.center[
+Think an moment.
+]
+
+---
+template: plain
+name: undoing_and_redoing_things
+header: #### Making *vi* "Compatible to User Expectations"
+
+Assuming the following situation, the "right" way will probably be "wrong":
+
+.pull-left[
+Change the long-standing use (*vi* predates many other full-screen editors
+still in use) and …
+
+… **upset long-term users**.
+]
+.pull-right[
+Try to "acquire as many new customers as possible" by …
+
+… **doing most anything like "everybody" does it**.
+]
+
+Of course, the unifying solution is to control that particular behaviour –
+and probably much more – via *User Preferences*.
+
+.N.center[
+In fact *vi* supports to map any key or key combination to any command.
+]
+
+This allows to put *vi* into clothes making the editor look much like what
+a typical user would expect today.
+
+---------------------------------------------------------------------------
+.center[
+The pro's and con's of this are discussed on the next pages.
+Reading it is not essential.
+So you may well again change to the [fast track](#undoing_moves).
+]
+
+---
+template: plain
+name: pros_and_cons_of_key_remapping
+header: #### Pro's and Con's of Key Re-Mapping
+
+Mapping keys to the *usual expectations* brings *vi* close to other editors:
+
+* This may make sense for the many special keys available today on typical
+  (PC-) keyboards (e.g. ⇤ = `0`, ⇥ = `$`, ⇞ = `CTRL-D`, ⇞ = `CTRL-U`
+
+* But it still doesn't solve a single difference that makes *vi* different
+  from most any other editor.
+
+--
+
+.N[
+*Inserting new* and *overwriting existing* text must be terminated with `␛`.._[]
+]
+
+Nevertheless, some time after keyboards had standardized cursor keys, these
+were typically mapped as follow during text inputs:
+
+.pull-left[
+* ← = `␛i` – left, continue insert
+* → = `␛la`– right, cont. insert
+* ↑ = `␛ha` – up, continue insert
+* ↓ = `␛ja` – down, cont. insert
+]
+.pull-right[
+**But:** this controverts starting all changes in the optimal way, for
+**fewer** key strokes and **more** opportunities to repeat with dot.
+]
+
+.F[:
+Most often this is called *Command Mode* vs. *Insert text Mode* and if couldn't
+throw the Mode Based Model overboard just "translate" the above accordingly.
+]
+
+---
+template: plain
+name: pros_and_cons_of_key_remapping
+header: #### Mapping Moves in a Better Way
+
+The essential thing to recognize is this:
+
+* Typically, also move **terminates** the change you made last.
+
+* **Either before or after the move you start or have started thinking.**
+
+* Finally you decide what to do next.
+
+.N[
+The chance plain insertion (as caused by `i` or `a`) now is the optimal way to
+start the next change is not that high.
+]
+
+* Therefore:._[]
+
+  * To map available special keys to related moves is OK.
+  * Then actually doing that move is what the user expects.
+  * **But re-entering "Text Insert Mode" is counter productive.**
+
+.F[:
+So, picking up the mappings criticized on the last page, "less is more".  
+For the cursor keys:
+`←` = `␛i` (left), `→` = `␛la`(right), `↑` = `␛ha` (up), `↓ = `␛ja` (down)`  
+For some other keys:
+`⇤` = `␛0` (begin of line), `⇥` = `␛$` (end of line), `⤒` = `␛1G` (first line),
+`⤓` = `␛G` (last line)
+]
+
+---
+template: plain
+name: adapting_preferences
+header: #### Adapting Preferences (A Word to the Wise)
+
+At first glance, individually adapted key-mappings seem an attractive way to
+"improve" *vi*._[] according to your personal taste.
+
+.N[
+**But consider:**
+If one of your typical use cases is to configure and do other preparative work
+on newly installed systems, you will have to work with *vi* "as is"
+(out of the box).
+]
+
+* Of course part of your work may be to install your preference settings early
+  during that process.
+
+* If the concrete hardware is – say – a tiny embedded Linux with no individual
+  user accounts …
+  * … you may need to enforce your own preferences to all others …
+  * … or meticulously always remove them afterwards …
+  * … which of course you will not do.
+
+.F[:
+Besides the fact actually *vim* is the *improved vi* (or: *vi improved*) :-),
+the author avoids too far-going adaptions of *vi* and *vim* for exactly that
+reason: when frequently working on a new system or systems not fully under
+one's own control, there is always a certain amount op surprises.
+]
+
+---
+template: plain
+name: undoing_moves
+header: #### Undoing Moves
+
+Sometimes you enter a move inadvertently.
+
+* If the repositioning of the edit location was over a far distance, you can
+  return return to where you came from with the `''` command.
+
+.N.center[
+The command is **two *apostrophes*** or **two *grave accents*** in a row._[]
+(not a single double quote).
+]
+
+--
+
+There is yet another nifty way to achieve the effect:
+
+* `u` + `CTRL-R` – i.e. an *Undo* directly followed by a *Redo*.
+
+This moves the cursor to the location where the last change was done, 
+most often the place from which the inadvertent move was started.
+
+--
+
+* Even when both forms are slightly different:
+  * returning to the point of your "last change" (see what it was)
+  * helps to make sure the move was the only "inadvertent" thing.
+
+.F[:
+There is a subtle difference in that via *grave accents* the cursor is placed
+to the exact column in the line where it was before, with *apostrophes* it is
+placed on the first non-white-space character of that line.
+]
+
+---
+template: plain
+name: cancelling_commands
+header: #### Cancelling Incomplete Commands
+
+Any command can be cancelled before execution:
+
+* While `␛` is also *positive termination* (= *Do it!*)
+  * (for every change which requires free text input)
+
+* in most any other case it is the *negative termination* when
+  * a repetition factor is inadvertently input, or
+  * a (longer) command is not yet complete and
+  * hence has not yet been executed.
+
+---
+template: plain
+name: cancelling_commands
+header: #### Escaping from Surprising States
+
+Two subtle things may sometimes go wrong when a novice works with *vi*:
+
+.pull-left[
+.N.center[
+`Q` is inadvertently hit
+
+-----------------------
+As response type: `vi⏎`
+]
+
+**Explanation:**
+
+While *vi*'s `:`-command is an interface to execute one single command of the
+*ex*-editor (on which *vi* is based), …
+
+… the `Q`-command enters that state permanently …
+
+… or until explicitly switched back.
+]
+.pull-right[
+.N.center[
+`CTRL-Z` is inadvertently hit
+
+-----------------------
+As response type: `fg⏎`
+]
+
+**Explanation:**
+
+This usually._[] suspends a foreground process associated with the
+controlling terminal (for which the shell is waiting to end).
+
+Then the shell process continues to run until the (shell command) `fg`
+resumes the *vi* process.
+]
+
+.F[:
+The feature described here is usually part of any modern Unix-like OS or
+emulated environments, but might be disabled during build. Also the concrete
+key – causing to suspend the process, `CTRL-Z` here, can be modified (e.g.
+with the `stty`-command).
+]
+
+---
+template: plain
+name: transporting_text_portions_between_files
+header: ### Transporting Text Portions Between Files
+
+Besides plain editing, a common task when using an editor for transporting
+text between files of the GUI's Cut-Buffer._[]
+
+.F[:
+This is the buffer most any computer user makes use of without further thinking,
+when she or he has visually marked a portion of text and subsequently uses
+CTRL-C and CTRL-V.
+]
+
+.N[
+The following assumes like any other decent software developer the dear reader
+is lazy …
+]
+
+--
+
+… and applies the DRY-principle whenever possible.
+
+* So it is not an option to "copy"
+  * via your eyes,
+  * through your brain and
+  * back into your finger tips.
+
+--
+
+The next three sub-sections cover the basic different cases:
+
+1. [Copy text between files](#copy_between_files)
+   (all opened in the same *vi*-session).
+2. [Copy text from a file](#copy_from_file)
+   open in *vi* to the GUI's Cut-Buffer.
+3. [Copy text to a file](#copy_to_file)
+   opened in *vi* from the GUI's Cut-Buffer.
+
+---
+template: plain
+name: copy_between_files
+header: #### Copy from one File to Another File
+
+.N.center[
+If this use case is not of interest, pass it on the
+[fast track](#copy_from_file).
+]
+
+The mechanics for copying between files is simple.
+
+There is a hidden text buffer,._[]
+
+* **into** which any text is saved that gets
+  * *deleted* (with commands `x`, `X`, `d` + *move*, `dd`, and `D`)
+  * *yanked* (with commands `y` or `Y`);
+
+--
+
+* **from** which text is text
+  * *pasted* (with commands `p` or `P`).
+  
+
+.F[:
+Actually there are 36 such buffers, 26 that are freely usable and named `a` to
+`z`, another nine with a more specialized purpose named `1` to `9`, and finally
+one buffer that is used per default. For most practical use cases novice and
+even moderately advanced *vi* user may have, the buffer used per default is
+fully sufficient. Therefore the other 35 buffer receive no coverage here.
+]
+
+---
+template: plain
+name: saving_deleted_text
+header: ##### Saving Deleted Text
+
+This happens automatically for **each** command deleting some text.
+
+The default buffer is overwritten with any subsequent deletion._[]
+
+.F[:
+Before any old buffer content is overwritten, it is copied to the buffer named
+`1` after the text held there is copied to the buffer named `2` etc. Therefore,
+while the text deleted last ins available per default, nine more deletions are
+also accessible in the buffers named `1` to `9`.
+]
+
+--
+
+.N.center[
+A distinction is made whether the deletion has been  
+part of a line or one or more full line(s).
+]
+
+This will have importance when the text later gets pasted.
+
+---
+template: plain
+name: explicitly_storing_text
+header: ##### Explicitly Storing Text
+
+Explicitly *yanking* some text is can be done with the
+
+* `y`-command which needs to be completed with any move;._[]
+* `Y`-command – by default affecting the current line;
+* `yy`-command – same as before (but one more letter to type)
+
+.F[:
+The various cases are modelled closely to the systematic behind the `d` and `c`
+commands, which also need to be combined with a move too. But there are
+differences:  
+While the uppercase versions `C` and `D` are actually `c$` and `d$`, the
+uppercase version `Y` yanks a whole line, and may also be spelled `yy`. This
+is close to `d` and `c` insofar as `dd` and `cc´ also affects exactly one
+line.  
+In case there is a repetition count it is taken as the number or lines to
+be yanked from the current edit location down. The default is `1`.
+
+]
+
+---
+template: plain
+name: saving_deleted_text
+header: ##### Inserting Text
+
+The rule how saved text is inserted via `p` and `P` is simple:
+
+* Deleted text once **part** of a line
+  * will go in between other (existing) text left and right to the edit
+  location;
+
+* Deleted text once constituting separate lines,
+  * will go below or above the current line.
+
+--
+
+Furthermore the systematic of *upper case* vs. *lower case* use is consistent
+with other commands:
+
+* `P` inserts below the current line;
+* `p` inserts above the current line;
+
+.N[
+**Aide-memoire:**
+
+Like the "wide arrow" on the SHIFT-key points *Upwards*, the upper case version
+of the two related command letters has its effect upwards.._[]
+]
+
+---
+template: plain
+name: explicitly_storing_text
+header: ##### Switching Between Files
+
+The buffers holding deleted or explicitly yanked text keeps its content._[]
+even when the current file is written back and another file is opened.
+
+.F[
+This **was not the case** in original *vi* – there the technique described
+requires to use a named buffer.
+]
+
+* Opening another file in an ongoing *vi* session may be done with
+
+  * **`:n`** *`name`* `⏎` – open file *`name`*
+  * **`:w`** needs to be used **before** in case of unsaved edits
+  * (alternatively the `autowrite` option can be set: `:set aw⏎`)
+
+White space needs to separate the command from the file name, if that
+has a letter or a digit as its first character.
+
+--
+
+* It is very easy to switch back and forth between two files:
+
+  * `#` is a substitute for the file name historically used last;
+  * so `:n%⏎` does the switching (it also changes what `#` stands for).
+
+--
+
+.N.center[
+Combining the above with *yank*-ing and *paste*-ing is all you need to
+transport text portions between files.
+]
+
+---
+template: plain
+name: copy_from_file
+header: #### Copy from File to GUI Buffer
+
+.N.center[
+If this use case is not of interest, pass it on the
+[fast track](#copy_to_file).
+]
+
+This does not involve *vi* directly but must be a service of the terminal
+emulation used.
+
+Usually you just need to
+
+* visually mark the text portions of interest in the usual ways
+* copy it with a context menu or key short-cut
+* paste it wherever you want.
+
+--
+
+---
+template: plain
+name: copy_from_file_pitfalls
+header: #### Copy from File to GUI Buffer – Some Pitfalls
+
+The following covers what may cause small surprises and also describes
+possible workarounds.
+
+--
+
+**Pitfall #1**
+
+* The terminal emulator needs a shortcut for copying different
+  from `CTRL-C` (as most any other GUI-application):
+  * Find out what shortcut this is (then use it), or
+  * find out if there is a *copy*-entry in the context menu.
+
+<!-- -->
+
+--
+**Pitfall #2**
+
+* The text portion to copy is large and does not fit fully to the screen:
+  * Copy portion by portion (always possible but time consuming), or
+  * consider using a sufficiently small font during that operation.._[]
+
+.F[:
+A font size large enough to identify the part to is fully sufficient, it needs
+not be large enough to do any other editing, you can (and should) of course
+switch back to the normal font for this.
+]
+
+--
+
+**Pitfall #3**
+
+* You didn't avoid to pick any of the **`~`**-lines (*vi* uses as filler at the
+  end of the screen, if the file is small or has been scrolled-up too far).
+
+---
+template: plain
+name: copy_to_file
+header: ### Copy GUI's Cut Buffer to File
+
+.N.center[
+If this use case is not of interest, pass it on the
+[fast track](#external_commands_as_filters).
+]
+
+In this case again some help of the OS / GUI is necessary, but vice versa now:
+
+* Understand that **from *vi*'s point of view** any text pasted …
+  * choosing this action from a selection of a context menu, or
+  * doing the same with some keyboard short-cut (like CTRL-V)
+* … is nothing else but keyboard input.
+
+<!-- -->
+
+--
+
+* So just use one of *vi*'s command starting text insertion._[]
+  * but actually any other will work too (like `i`, `a`, `cG` etc.)
+  * **paste the GUI buffer** and
+* supply a terminating `␛` via the keyboard.
+
+.F[:
+Often this will be `O` or `o` as presumably the pasted text will be more as
+just be a few characters,
+]
+
+---
+template: plain
+name: copy_to_file_pitfalls
+header: ### Copy to File – Some Pitfalls
+
+**Pitfall #1**
+
+* The terminal emulator needs a shortcut for pasting different
+  from `CTRL-V` (as most any other GUI-application):
+  * Find out what shortcut this is (then use it), or
+  * find out if there is a *paste*-entry in the context menu.
+
+--
+
+**Pitfall #2**
+
+* You have set *vi* to `autoindent` and the text pasted has leading
+  white-space.._[]
+  * Do a (manual) re-indentation after pasting, or
+  * remember to switch auto-indent off before pasting
+  * (and that the `u`-command is your friend if you forgot).
+
+.F[:
+As *vi* cannot determine whether the input comes from the keyboard or not, its
+clear that the behaviour will be the same as for interactive input:  
+**For each new line *vi* indents by the amount of white-space already there …**  
+**… then there is more white space from the begin of pasted line …**  
+**… which will cause accordingly more indentation …**  
+**…  causing each new line will be indented deeper an deeper.**
+]
+
+--
+
+---
+template: plain
+name: copy_to_file_trick
+header: #### Copy to File – The Unix Trick
+
+.N.center[
+"Non-Linuxers" may want to pass this on the
+[fast track](#external_commands_as_filters).
+]
+
+On Unix derivatives or emulation environments also this is a nice way:
+
+* Start with `:r!cat⏎`
+  * **paste the GUI buffer** and
+* supply a terminating `CTRL-D` via the keyboard.
+
+Even if set, `autoindent` is not applied when "reading some command output" –
+this is what `r!` does.._[]
+
+.F[:
+The "other half" of that technique might look a bit peculiar as in this case,
+as `cat` just passes through its input "as is" … but if you lean back and
+think for a moment you may see a whole new world (e.g. just consider using
+`nl -ba` instead of `cat` …).
+]
+
+--
+
+-------------------------------------------------------------------------------
+
+The possibility to read any program's output is extremely powerful as now
+
+.center[
+***Only The Sky is the Limit***
+]
+
+when it comes to extending *vi* with standard OS-commands (and you may reach
+out to the borders of our solar system with specialized programs).
+
+---
+template: plain
+name: divide_et_impera
+header: #### Divide et Impera
+
+.N.center[
+"Non-Unixlers/Linuxers" may want to pass this on the
+[fast track](#external_commands_as_filters).
+]
+
+Knowing a basic set of simple standard commands can help to do  number of
+systematic things **in** *vi*, though without special support **of** *vi*.
+
+
+.pull-left[
+Consider this C fragment …
+```
+int sequence[] = {
+   ???
+};
+```
+]
+.pull-right[
+… and ask yourself how long._[] it would take – for you, with your favorite editor –
+to supply comma-separated initial values 1 … 32 at the `???` marked point.
+]
+
+--
+
+(And – of course – be very sure the sequence is free of careless mistakes.)
+
+--
+
+.N.center[
+That long: `:r!seq -s, 42⏎`
+]
+
+.F[:
+`1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32`  
+A short back-on-the-envelop calculation based on about 80 characters for the
+above, makes 20 seconds for input achievable, for a well-trained typist. The
+bigger problem is to verify correctness. This may take another 30 seconds, and
+probably more to be **really sure**, because the faster you typed the higher
+the risk to get it wrong! So generating this sequence (manually, reliably)
+should take at least a minute.
+]
+
+---
+template: plain
+name: external_commands_as_filters
+header: ### External Commands as Filter
+
+When *vi* was developed, resources were **extremely scarce* compared to what is
+the standard today:
+
+.N.center[
+512 or 768 kByte._[] of main memory could be considered plentiful.
+]
+
+So, *vi* has comparably few editing commands built-in …
+
+.F[:
+No typo, kByte not MByte! And even if you were as lucky as to have – say – 2 or
+even 4 MByte, usually **many** programs would have to share this size with each
+others. So it was prime to keep programs small, as otherwise a lot of swapping
+(writing memory pages to disk and read them back) would occur and this would in
+turn slow the machine substantially down.
+]
+
+--
+
+… but allows to filter the edited text through any external command.
+
+* There are two ways to do this:
+  * **`:%!`** *`any command`* **`⏎`** – as *ex*-command and
+  * **`!`** *`some-move`* *`any command`* **`⏎`** – from *vi*.
+
+<!-- -->
+--
+
+* As *vi*-command `!` sends a `!`-prompt as soon as *some-move* is complete
+  and waits for more input at the screen bottom.
+* Furthermore *any command* (other than *some-move*) is echoed back while
+  typing it and allows to correct typos.
+
+---
+template: plain
+name: simple_filter_command_example
+header: #### Simple Filter Command Example
+
+(Feel free to skip the following examples on the [fast track](#end_of_part_1).)
+
+-------------------------------------------------------------------------------
+
+.pull-left[
+Again assume a table …
+```
+-------------------
+Bildschirm - Screen
+Maus - Mouse
+Modem - Modem
+… - …
+Tastatur - Keyboard
+-------------------
+```
+]
+.pull-right[
+… is to be transposed:
+```
+-------------------
+Screen - Bildschirm
+Mouse - Maus
+Modem - Modem
+… - …
+Keyboard - Tastatur
+-------------------
+```
+]
+
+Different from the [prior demonstration](#back_references_in_replacement)
+based on this example
+
+* the table is delimited with two lines consisting of  "-"-signs only;
+* instead of the built-in `substitute` it uses `awk` as external program.
+
+--
+
+.N.center[
+`:?^----*$?+1,/^----*$/-1!awk -F' - ' '{print $2 " - " $1}'⏎`
+]
+
+
+---
+template: plain
+name: advanced_filter_command_example
+header: #### Advanced Filter Command Example
+
+(Feel free to skip the following examples on the [fast track](#end_of_part_1).)
+
+-------------------------------------------------------------------------------
+
+This example textually re-formats a tabular arrangement of cells
+in lines and columns, according to the space required.
+
+* the column separators is the vertical bars (`|`);
+* the number of columns is that of the line with the most separators;
+* the size of each column is calculated from longest element.
+
+An example demonstrating the transformation is this input:
+```
+Karl Meyer | Waldbuehl | Meisenstrasse 12
+Sylvia Musterfrau | Bodenstedt
+...
+```
+
+To be reformatted to:
+```
+Karl Meyer         | Waldbuehl  | Meisenstrasse 12
+Sylvia Musterfrau  | Bodenstedt |                 
+...                |            |                 
+```
+
+---
+template: plain
+name: advanced_filter_command_example_2
+header: #### Advanced Filter Command Example - Part 2
+
+```
+# tfmt.awk
+#
+function max(a, b) { return (b > a) ? b : a }
+{
+    nfields = max(nfields, NF)
+    for (nf = 1; nf <= NF; ++nf) {
+         sub(/^[ \t]*/, "", $nf)
+         sub(/[ \t]*$/, "", $nf)
+         f[NR":"nf] = $nf
+         fwidth[nf] = max(fwidth[nf], length($nf))
+    }
+}
+END {
+    for (nr = 1; nr <= NR; ++nr) {
+        for (nf = 1; nf <= nfields; ++nf) {
+            printf("%-*s%s", fwidth[nf], f[nr":"nf],
+                             (nf < nfields) ? " "FS" " : "\n")
+        }
+    }
+}
+```
+
+---
+template: plain
+name: advanced_filter_command_example_3
+header: #### Advanced Filter Command Example – Part 3
+
+If only a part of the edited text is to be filtered and the current line is at
+the start of that part and after its end follows an empty line, use one of:._[]
+
+.N[
+`!/^$/awk -F'|' -f tfmt.awk⏎` – (as *vi*-command) or  
+
+----------------------------------------------------
+`:.,/^$/!awk -F'|' -f tfmt.awk⏎` – (as *ex*-command)
+]
+
+.F[:
+To filter the whole content of a file use one of:  
+`1G!Gawk -F'|' -f tfmt.awk⏎` – (as *vi*-command) or   
+`:%!awk -F'|' -f tfmt.awk⏎` – (as *ex*-command)
+]
+
+--
+
+A final problem to be aware of is this:
+
+* Should the called filter program crash before producing its output …
+
+--
+* … the piped-through part of the file will just vanish.
+
+--
+
+----------------------------------------------------------
+.pull-left[
+But as always, if something seems to fail badly with *vi*.
+
+**DON'T PANIC** – just remember:
+]
+.pull-right[
+<span style="font-size: 666%;">u</span>ndo is your friend.
+]
+
+---
+template: plain
+name: end_of_part_1
+header: ## End Of Part 1 - Start of Part 2
+
+This ends part 1, covering classic *vi* features only.._[]
+
+--
+
+In part 2 *vim* extensions are the topic:
+
+* [More Feedback with *Visual Mode*](#vim_visual_mode)
+* [Next/previous word under cursor](#vim_next_previous_word)
+* [Word completion during insertions](#vim_word_completion)
+* [Various history features](#vim_history_features)
+* [Editing Windows vs. Buffers vs. Tabs](#vim_windows_buffers_tabs)
+* [Improving keyboard mappings](#vim_keyboard_mappings)
+* [*Vim* as file comparison tool](#vim_file_comparison)
+
+And, if time allows, once more extending *vim* via general programming
+languages is covered as bonus track.
+
+.F[:
+This is not saying each and every example presented so far is guaranteed to
+work with even the oldest version of *vi* you might be able to get hands on.
+But the author of this has worked with *vi* years before *vim* and other *vi*
+clones came along, so you can be pretty sure everything covered so far
+works pretty "portable" across the board of most any "*vi* inspired"
+derivative written since the mid 80's.
+
+------------------------------------------------------------------------------
+From here on everything requires *vim* – read as **V**i **IM**proved. Be sure
+to understand that *vim* is not only *Open Source* and *Free to Use* for
+everybody, it is also *Charityware*. Try `:help uganda⏎` to find out what
+*vim*'s original author and maintainer from 1988 up to today, [Bram Moolenaar],
+means with this.
+]
+
+[Bram Moolenaar]: https://en.wikipedia.org/wiki/Bram_Moolenaar
+
+
+---
+template: linkinfo
+graphic: MyFavouriteVimExtensions
+name: vim_visual_mode
+header: ### More Feedback with *Visual Mode*
+
+*Visual Mode*._[] is
+
+* started with one of
+
+  * `V` – one or more lines,
+  * `v` – a stretch or …
+  * `CTRL-V` – … rectangle of characters
+
+* and a range is drawn-out using moves
+
+  * in both direction (thereby enlarging or shrinking the range).
+
+**The affected range or area is highlighted.**
+
+.F[:
+Didn't the first part favorite a *"There are no Modes"* mental model for *vi*?  
+So, why are modes introduced now? And this even in the official *vim* docs?  
+The (long) answer is in the presenters notes, so in the electronic version you
+may use "P" to read it (and once more "P" to go back to the ordinary view of
+the presentation).
+]
+
+???
+Typically a model is used as an incomplete representation of the
+"real thing". As such it helps understanding certain aspects better.
+
+The way how physicist "think" about light makes a good example.
+
+For a long time it was "modelled" as wave or "particles" and there were
+kind of "fights" among physicists who is "right".
+
+As we know today, there is no (fully) right or wrong in deciding this question.
+Instead it (mainly) depends on the amount of energy transferred, whether the
+wave or particle stream model best helps to achieve further insights, finally
+leading to predictions that can be tested and verified (or refuted).
+
+So, at the end, light is "better understood", but *it **is*** none of both –
+neither a wave (though some behaviour may be best modelled viewing light
+that way), nor a particle stream (though some other behaviour may be best
+modelled viewing light way).
+
+Viewing *vi* as "mode-less" editor helps to learn – and consequentially apply –
+more than just some few commands to modify the edited text, leading to fewer
+problems with frequently necessary "mode changes" and more chances to apply
+command repetition with dot.
+
+Once this has been achieved, describing a certain feature of *vim* using the
+word *"Mode** is not any more an issue to fight over.
+
+**But**: In this case a non-mode model could even be kept by taking the
+view-point that the three *vim*-commands for "Visual Mode" are rather a
+container for moves (with the option to undo some move by moving in the
+opposite direction) and visual highlighting of a range (from the current
+editing location to the target when all moves are summarized) and that the
+three commands to "start visual mode"  need to be completed with some other,
+final command – or, like *vim* calls it, an operator. Besides, "Visual Mode"
+can also be terminated with `␛` and then has no effect at all.
+
+---
+template: plain
+name: vim_visual_mode_demo
+header: #### *Visual Mode* Demo
+
+.center[
+Ready to see some practical applications?
+
+.N.center[
+Follow the live demonstration.
+]
+
+Feel free to ask questions or propose variations.
+]
+
+--
+
+------------------------------------------------------
+
+… back again:
+
+
+* If that sufficed your needs, let's [fast forward](#vim_next_previous_word)
+  to another very useful *vim* extension.
+
+* In case you are just reading this after or before the presentation,
+  continue with the next page.
+
+---
+template: plain
+name: vim_visual_mode_concept
+header: #### *Visual Mode* Concept
+
+There is a number of commands affecting the range from the current editing
+location to the target of a move.
+
+.pull-left[
+* These *vi* commands are …
+  * `c` – change
+  * `d` – delete
+  * `y` – yank (copy to be pasted later on)
+  * `>` – indent more
+  * `<` – indent less
+  * `!` – pipe through filter
+]
+.pull-right[
+* … and *vim* added even more, e.g.
+  * gq – re-indent lines
+* and optionally adds the *vi*-command
+  * `~` – change case  
+    (*Abcd → abCD*)
+]
+
+For more information see `:help operator⏎` and * `:help tildeop⏎`.._[]
+
+.N[
+While characters are highlighted in *"Visual Mode"*, all of the above will
+affect exactly that part on the edited text.
+]
+
+.F[:
+In *vi* the `~-command` always **directly** affects the character under the
+cursor and moves on to the next character on the right, or – at the end of a
+line – to the start of the following line.
+]
+
+---
+template: plain
+name: vim_visual_mode_cancel_and_repeat
+header: #### Cancelling and Repeating *Visual Mode*
+
+As any other incomplete command,
+
+* *"Visual Mode"* may be prematurely cancelled with `␛`
+* removing all the highlighted parts without any modifying effect.
+
+.N.center[
+Highlighting is also removed after the (closing) command._[] is executed.
+]
+
+.F[:
+This refers to the commands listed before and also to *ex*-commands, for which
+the combination with *Visual Mode* still needs to be covered.
+]
+
+--
+
+.pull-left[
+As usual, if the closing command didn't have the desired effect, just remember:
+
+.center[
+<span style="font-size: 333%;">u</span>ndo is your friend.
+]
+]
+.pull-right[
+Also note that the range or area which has been visually highlighted last is
+not simply forgotten:
+
+**It may be re-established any time with the `gv`-command.**
+]
+
+---
+template: plain
+name: vim_visual_mode_and_ex_commands
+header: #### *Visual Mode* and *ex*-Commands
+
+When typing a colon (*ex*-command) from *Visual Mode*, the prompt is:._[]
+
+.center[
+**`:'<,'>`** …
+]
+
+This is, a range is prepared with two special marks:._[]
+
+* `'<` – begin of visually marked range and
+* `'>` - end of visually marked range
+
+.N[
+Therefore any *ex*-command expecting a range can be easily run on a group of
+lines previously highlighted in *Visual Mode*.
+]
+
+Of course, the range `'<,'>` is only a default and may be edited.
+
+.F[:
+With the cursor on the location marked "…" above – waiting for an *ex*-command
+to be terminated with the ⏎-key or cancelled with the ␛-key.
+]
+
+---
+template: plain
+name: interlude_vi_marks_and_ex_ranges
+header: #### Interlude: *Vi* Marks and `Ex` Range Offsets
+
+It was decided not to cover marks and ranges for *ex*-commands, so:
+
+.N.center[
+Let's [fast forward](#vim_next_previous_word) from here.
+]
+
+--
+
+You have been sufficiently warned – so go ahead and read the footnote.._[]
+
+
+.F[:
+Marks are another general feature that *vi* had and *vim* improved – as usual
+(and as *vim*'s name was meant). Putting it extremely brief and based on *vi*:
+
+Up to 26 locations in the edited text may be arbitrarily *marked* using the
+command **`m`** `α` where *`α`* represents any of the characters `a` to `z`.
+Once set, a mark can be a target for a move – of course also in combination
+with a text changing command that is completed with a move. As part of an
+*ex*-command a mark may be used as delimiter for a range in the form
+**`'`** `α`.
+Furthermore, ranges may be specified in any mix of valid reference points, e.g.
+**`'<,$`** would specify anything from the begin of file to the end of the
+(last) range highlighted in *Visual Mode*.
+As another example: **`1,'<`** is the range from the begin of the file to the
+first line of the last visually highlighted range – **including that line**.
+Finally, a reference point in an *ex*-command may take an offset, a signed
+numeric value. Therefore a range like **`10,$-10`** is perfectly valid … as
+is **`'<-1,'>+1`** … as is **`1,'<-1`** … as is **`'<+1,$`** … as is …
+**`'<,/^END/-1`** … as is …
+]
+
+
+---
+template: linkinfo
+graphic: MyFavouriteVimExtensions
+name: vim_next_previous_word
+header: ### Next/Previous Word Under Cursor
+
+Moving to next occurrence of word under the cursor:
+
+* `#` – direction begin of file
+
+* `*` – direction end of file
+
+---
+template: plain
+name: vim_next_previous_word_concept
+header: ### Next/Previous Word Concept
+
+Many modern editors have more or less sophisticated look-up mechanisms adapted,
+often closely adapted to the text._[] being edited.
+
+* The advantage is that searching or highlighting specific information is at
+  your fingertips.
+
+* The disadvantage is that it usually needs to be carefully adapted to any new
+  language and though this is often possible via user preferences you may need
+  a certain level of expert knowledge to actually do it.
+
+* Also *vim* has many programming language specific settings and languages may
+  also be recognized from file name suffix or file content.
+
+.F[:
+Usually this will need to be written in a programming language, or it might
+contain some meta-information, hence being syntactically restricted. Even if
+the text is finally processed with an external tool, today's user expectation
+is to get at least some guidance and hints on typical errors, omissions etc.
+]
+
+--
+
+.N.center[
+Besides, in *vim* here is a simple version of such a feature built-in,  
+language independent and therefore usable without any set-up.
+]
+
+---
+template: plain
+name: vim_next_previous_word_demo
+header: #### Next/Previous Word Demo
+
+.center[
+Ready to see some practical applications?
+
+.N.center[
+Follow the live demonstration.
+]
+
+Feel free to ask questions or propose variations.
+]
+
+--
+
+------------------------------------------------------
+
+… back again:
+
+
+* If that sufficed your needs, let's [fast forward](#vim_word_completion)
+  to another very useful *vim* extension.
+
+* In case you are just reading this after or before the presentation,
+  continue with the next page.
+
+---
+template: plain
+name: vim_next_previous_word_concept
+header: ### Next/Previous Word Limitations
+
+Astonishingly, a number of *vim* users report._[] that the `#`- and
+`*`-commands are
+
+* of great value for their day-to-day work,
+
+--
+
+* fully sufficient for the majority of the use cases (say 95%)
+
+--
+
+* making it not worth while to look
+
+  * for something given 99% or even 100%, but
+  * at the cost of a more complex set-up.
+
+--
+
+.N.center[
+Note that this presentation still was written with the group of users in mind
+who have to use this *vim* out of the box (e.g. on an embedded device for which
+some configuration files need to be adapted).
+]
+
+---
+template: plain
+name: vim_next_previous_word_hints
+header: ### Next/Previous Word – Hints
+
+Two more things useful to know:
+
+* *Vim's* default notion which letters constitute a word …
+
+.N.center[
+… **may or may not** be what you need for the task at hand …
+]
+
+* … but is configurable (see `:help iskeyword⏎`)
+
+--
+
+* When *search pattern highlighting* is active (see: `:help hlsearch⏎`) …
+
+  * … all occurrences of the pattern last searched are highlighted,
+  * including searches done with the `#`- or `*`-command.
+
+--
+
+.N[
+Even if you are not willing to dive deeply into *vim*'s configurability,
+the default settings may give you 95…99% of the value you need.
+]
+
+.center[
+**Just Give It A Try!**
+]
+
+.F[:
+And also it seems, there is a large group who never heard of `#` and `*` and
+consequently never gave it a try for a few days, before deciding *vim* is *"too
+primitive for really productive work"*.
+]
+
+---
+template: linkinfo
+graphic: MyFavouriteVimExtensions
+name: vim_word_completion
+header: ### Word Completion During Insertions
+
+Whenever *vim* executes some command that
+
+* requires text input (to be terminated with ␛)
+
+* it can run through a list of word completions
+
+  * CTRL-N – (forward)
+  * CTRL-P – (backward)
+
+---
+template: plain
+name: vim_word_completion_demo
+header: #### Word Completion Demo
+
+.center[
+Ready to see some practical applications?
+
+.N.center[
+Follow the live demonstration.
+]
+
+Feel free to ask questions or propose variations.
+]
+
+--
+
+------------------------------------------------------
+
+… back again:
+
+
+* If that sufficed your needs, let's [fast forward](#vim_history_features)
+  to another very useful *vim* extension.
+
+* In case you are just reading this after or before the presentation,
+  continue with the next page.
+
+---
+template: plain
+name: vim_word_completion_concept
+header: #### Word Completion Concept
+
+By default *vim*'s word completion works by simply looking for words with the
+same beginning in the file currently edited._[], therefore:
+
+.F[:
+Based on some heuristics, to find proposals for completion *vim* may also
+include the content of other files that have been recently edited or otherwise
+appearing to be related to the current file.
+]
+
+.N.center[
+*Vim's* word completion is neither "intelligent" nor "context based"
+]
+
+--
+
+* This is at least true per default.
+
+--
+
+* Like many *vim* features it is configurable.
+
+--
+
+* But it may turn out the default is good for 95% of its usefulness.
+
+--
+
+.center[
+**Just Give It A Try!**
+]
+
+---
+template: linkinfo
+graphic: MyFavouriteVimExtensions
+name: vim_history_features
+header: ### Various History Features
+
+*Vim* keeps a history of *ex*-commands – simply use
+
+* `:↑` – last *ex*-command shown at bottom line  
+(each other `↑` steps back._[] one more command).
+
+.F[:
+Of course, `↓` steps down (= forward in history).
+]
+--
+
+* While displayed, a command may be
+  * (further edited, then)
+  * executed with `⏎`, or
+  * cancelled with `␛`.
+
+--
+
+There are also specific lists to select from:
+
+* `q/` – old search patterns
+* `q:` – old *ex*-commands
+
+---
+template: plain
+
+name: vim_history_demo
+header: #### History Features Demonstration
+
+.center[
+Ready to see some practical applications?
+
+.N.center[
+Follow the live demonstration.
+]
+
+Feel free to ask questions or propose variations.
+]
+
+--
+
+------------------------------------------------------
+
+… back again:
+
+
+* If that sufficed your needs, let's [fast forward](#vim_buffers_windows_tabs)
+  to another very useful *vim* extension.
+
+* In case you are just reading this after or before the presentation,
+  continue with the next page.
+
+---
+template: linkinfo
+graphic: VimBuffersWindowsAndTabs
+name: vim_buffers_windows_tabs
+header: ### Editing Buffers vs. Windows vs. Tabs
+
+The basic idea is:
+
+* Map entities from the  
+  *File System*._[]
+
+.F[:
+The graphic suggests a hierarchical files system (as is typically used today)
+and *vim* supports this with `pwd`- and `cd`-commands.
+]
+
+* based on a
+  *Conceptional Model* of
+
+  * *Buffers*,
+  * *Windows*, and
+  * *Tab Pages*
+
+* to provide the optimal
+  *User Experience*.
+
+---
+template: plain
+name: vim_buffers_windows_tabs_demo
+header: #### Windows, Buffers, and Tabs Demo
+
+.center[
+Ready to see some practical applications?
+
+.N.center[
+Follow the live demonstration.
+]
+
+Feel free to ask questions or propose variations.
+]
+
+--
+
+------------------------------------------------------
+
+… back again:
+
+
+* If that sufficed your needs, let's [fast forward](#vim_key_mappings)
+  to another very useful *vim* extension.
+
+* In case you are just reading this after or before the presentation,
+  continue with the next page.
+
+---
+template: linkinfo
+graphic: MyFavouriteVimExtensions
+name: vim_key_mappings
+header: ### Improving Key Mappings
+
+*Vim's* key mapping._[] basically allows to
+
+.F[:
+As usual an improved version of what was already provided by *vi*.
+]
+
+* map any
+  * (sequence of)
+  * *Key-Stroke(s)*
+
+<!-- -->
+* to any *Editor Action*,  
+  be it
+  * a single command,
+  * a sequence of commands, or
+  * some arbitrarily complex processing.
+
+---
+template: plain
+name: vim_keyboard_mappings_demo
+header: #### Key Mappings Demo
+
+.center[
+Ready to see some practical applications?
+
+.N.center[
+Follow the live demonstration.
+]
+
+Feel free to ask questions or propose variations.
+]
+
+--
+
+------------------------------------------------------
+
+… back again:
+
+
+* If that sufficed your needs, let's [fast forward](#vim_file_comparison)
+  to another very useful *vim* extension.
+
+* In case you are just reading this after or before the presentation,
+  continue with the next page.
+
+---
+template: plain
+name: vim_ke_mapping-hints
+header: #### Key Mappings – Concept
+
+When using (improved) key mappings heavily, beyond the basics it is important
+to understand the more intricate points.._[]
+
+.F[:
+There is also a feature closely related to key-mappings, called
+*abreviations* (see: `:help ab ⏎`).
+]
+
+* The mapping can (and often should) be defined differently for:
+  * *vim* expects
+     * expects command input
+     * expects text input
+     * expects command completion with a move
+     * visually highlights a selection (after `v`, `V`, or `CTRL-V`)
+  * input is expected in the screen bottom, i.e.
+     * *ex*-commands (after `:`)
+     * search patterns (after `?` or `/`)
+     * external filter commands (after `!` + *move*)
+* Special handling is provided for:
+  * timeouts (when a shorter mapping is the start of a longer one)
+  * recursive mappings (replacements containing another mapping)
+
+.N.center[
+For more information see `:help mapping⏎`
+]
+
+---
+template: plain
+name: vim_ke_mapping-hints
+header: #### Personal Key Mappings – Pro's and Con's
+
+When "improving *vim* key-mappings" the following should be considered:._[]
+
+.pull-left[
+**Pro's:**
+
+* *Vim* can be brought close to any of its competitors.
+
+* Specially labeled keys on modern keyboards can be comfortably integrated.
+
+* As also sequences can be mapped related commands can be given a common
+  prefix.
+]
+.pull-right[
+**Con's:**
+
+It will feel uncomfortable to work in environments where
+these mappings can't be provided, e.g.:
+* systems or accounts …
+  * … owned by a friend or …
+  * … shared among colleages
+* embedded device as
+  * coming "out-of-the-box"
+  * requiring more setup
+]
+
+.F[:
+To add a subjective point of view: More than 30 years the author started to
+suggest a (re-) mapping of the labeled cursor movement keys **from** *"Text
+Input Mode"* so that after the move has been done *"Command Mode"*
+**persists**. Also the preferred (re-) mapping of the commands for handling
+*vim-windows <space><space>… is a more comfortable prefix as `CTRL-W`….
+]
+
+
+
+---
+template: plain
+graphic: MyFaouriteVimExtensions
+name: vim_file_comparison
+header: ### File Comparison
+
+File comparison with *vim* is usually achieved by
+
+* Running *vim* to compare two files often is done like shown below
+  (i.e. from the command line):
+  * `vimdiff` *`file1`* *`file2`*
+
+* From a running *vim* session with the commands:
+  * `:diffsplit` *`file`* `⏎` – compare current window to *file*
+  * `:diffthis⏎` – make current window participate in comparison
+  * …
+
+.N.center[
+For more information see the appropriate entries in *vim*'s built-in help.
+]
+
+---
+template: plain
+name: vim_key_mappings_demo
+header: #### File Comparison Demo
+
+.center[
+Ready to see some practical applications?
+
+.N.center[
+Follow the live demonstration.
+]
+
+Feel free to ask questions or propose variations.
+]
+
+--
+
+------------------------------------------------------
+
+… back again:
+
+
+* If that sufficed your needs, let's [fast forward](#vim_extensibility)
+  to another very useful *vim* extension.
+
+* In case you are just reading this after or before the presentation,
+  continue with the next page.
+
+---
+template: linkinfo
+graphic: MyFavouriteVimExtensions
+name: vim_extensibility
+header: ### *Vim* Extensibility
+
+First of all:
+
+* *vim* can – exactly like *vi* – be extended with *External Filters*.
+
+--
+Moreover:
+
+* *vim* has its own built-in scripting language.
+
+--
+Finally:
+
+* *vim* provides interfaces to a number of popular scripting languages.
+
+---
+template: plain
+name: vim_visual_mode_filtering
+header: #### Visual Mode and the `!`-Command
+
+As the `!`-command in *vi* needs to be completed with a move, it should not
+come to surprise that it applies to the highlighted part in *Visual Mode*.
+
+Here are the steps to use a *Filter Command* with some visual feedback on the
+range of lines which are modified:
+
+.pull-left[
+* Go to the first affected line
+* Start *Visual Mode* (i.e. hit `V`)
+* Extend the highlighted range._[]
+]
+.pull-right[
+.N.center[
+Verify that the extent of the highlighting is actually the range to be
+affected.
+]
+]
+
+--
+
+Now, as anything is set-up – aided by some feedback from *Visual Mode* …
+
+--
+
+.pull-left[
+* … press the `!`-key, then (at the `!`-prompt in the bottom line),
+* **enter the filter command**
+  * … (you may edit typos) …
+  * … (or cancel with `␛`) …
+* **finally hit the `⏎`-key**
+]
+.pull-right[
+.N.center[
+**Carefully check if the result is what you desired to get.**
+]
+
+.center[
+And never forget:  
+**`u`**<span style="font-size: 50%;">ndo</span> is your friend!
+]
+]
+
+.F[:
+As the highlighted range extends to the begin of file if you move upwards after
+starting *Visual Mode*, it doesn't matter whether you work "downward" or "upward".
+]
+
+---
+template: plain
+name: vim_scripting_language
+header: #### *Vim*'s Own Scripting Language
+
+As a major extension over *vi* a proper scripting language is part of *vim*.
+
+.pull-left[
+**Pro's:**
+
+* It is a fully-fledged Programming Language with
+  * Local and Global Variables
+  * Flow Control
+  * Sub-Routines
+  * … (and more) …
+
+* The needs of "editor scripting" are exactly matched.
+]
+.pull-right[
+**Con's:**
+
+* There are little to none similarities to other well-known scripting
+  languages,
+  * neither traditional (like [Tcl])
+  * nor modern ones   
+   (like [Python], [Ruby] …).
+* This leads to usually
+  * higher learning efforts,
+  * **which solely pay for *vim*-scripting**.
+]
+
+
+.F[:
+Not to diminish **the great piece of work [Bram Moolenaar] has given to the
+community with *vim***, the author of this presentation holds the strong
+opinion that an *interface to (re-) use existing languages* is much superior
+to a built-in scripting solution with a "home-grown" language. In case of *vim*
+the latter approach is probably best explained historically: *Vim* dates back
+to 1991, when scripting languages that spring into mind today were still very
+young (e.g. Tcl was created 1988), just newly born (like Python, as *vim*
+created 1991), or even far from their earliest stages of development (like
+Ruby, created 1995).
+]
+
+[Bram Moolenaar]: https://en.wikipedia.org/wiki/Bram_Moolenaar
+[Tcl]: https://en.wikipedia.org/wiki/Tcl
+[Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
+[Ruby]: https://en.wikipedia.org/wiki/Ruby_(programming_language)
+[CoffeeScript]: https://en.wikipedia.org/wiki/CoffeeScript
+
+---
+template: plain
+name: vim_scripting_extensions
+header: #### Interfacing with (more) Popular Languages
+
+.N[
+Note that not every version of *vim* may have the following interfaces – or
+not have **all** the interfaces that are technically possible – because these
+are feature that can be configured in or out via build options.
+]
+
+As we are approaching the end of our sight-seeing tour covering traditional
+*vi* and improved *vim* features, the following should suffice:._[]
+
+.pull-left[
+* `help lua`
+* `help pearl`
+* `help python`
+* `help ruby`
+* `help tcl`
+* … (try your favourite) …
+]
+.pull-right[
+But Lisp-Lovers, promise to be very brave when trying this:
+
+* `help lisp`
+
+.N.center[
+**Anyway, *YOU* have *[Emacs]*!**
+]
+]
+
+.F[:
+If you are used to look very closely on diligently type-setted text (like this
+presentation, you might have noticed that the `help` command is not any more
+fully spelled-out above, i.e. no leading colon (as it is an *ex*-command) and
+no indication of the `⏎`-key to terminate it. Or, as Geena Davis put it in
+[Tödliche Weihnachten] (original title: [The long Kiss Goodnight]) when her
+young daughter Caitlin broke her arm while ice skating:
+*"Das Leben ist Schmerz und Entbehrung – gewöhn' Dich schon mal dran!"*
+]
+
+[Emacs]: https://en.wikipedia.org/wiki/Emacs
+[Lisp]: https://en.wikipedia.org/wiki/Lisp_(programming_language)
+[Tödliche Weihnachten]: https://de.wikipedia.org/wiki/T%C3%B6dliche_Weihnachten
+[The Long Kiss Goodnight]: https://en.wikipedia.org/wiki/The_Long_Kiss_Goodnight
+
+---
+template: plain
+name: vim_future
+header: ### *Vim*s Future?
+
+[NeoVim]: https://neovim.io/
+[Atom]: https://atom.io/)
+[JavaScript]: https://en.wikipedia.org/wiki/JavaScript
+[CoffeeScript]: https://en.wikipedia.org/wiki/CoffeeScript
+
+Again
+
+.center[
+**… and not to diminish [Bram Moolenaar] great piece of work …**
+]
+
+out there some people *think* we live in times where not only *vi* but even
+*vim* is past its best.
+
+--
+
+* Some time ago the project *[NeoVim]* was started …
+
+--
+
+* … but the goal is also **not** to deviate from *vim's* user interface.
+
+.N.center[
+So still a substantial *Return of Investment* can be expected  
+from getting well-versed with *vim*.
+]
+
+Even *Eclipse* now supports a decent (optional) *vim*-style editor-UI!
+
+--
+
+-------------------------------------------------------------------------------
+
+And for a "completely fresh approach" on a *Programmer's Text Editor*,
+implemented and extensible in [CoffeeScript] – a much nicer variant of
+[JavaScript] – you might want to look at what the [Atom] people are doing …._[]
+
+.F[:
+Pssst, rumors have it there is or will be also a
+[*vim* style UI-variant](https://github.com/atom/vim-mode).
+]
+
+
+
+
+
+---
+template: plain
+class: smallerfonts
+name: vim_closing_note
+header: ### *Vim* Closing Note
+
+* Did you consider …
+  * … at least some of this interesting?
+
+--
+  * … or even much of this?
+
+--
+  * … useful for your day-o-day work?
+
+--
+  * … maybe very useful?
+
+<!-- -->
+--
+
+* Then:._[]
+
+.F[:
+This text can also displayed while in a *vim*-session using the command `:help uganda⏎`.
+]
+
+--
+
+```
+…
+                                                                *iccf* *ICCF*
+Vim is Charityware.  You can use and copy it as much as you like, but you are
+encouraged to make a donation for needy children in Uganda.  Please see |kcc|
+below or visit the ICCF web site, available at these URLs:
+
+        http://iccf-holland.org/
+        http://www.vim.org/iccf/
+        http://www.iccf.nl/
+
+You can also sponsor the development of Vim.  Vim sponsors can vote for
+features.  See |sponsor|.  The money goes to Uganda anyway.
+…
+```
+
+.center[
+*Thank You for Attending (or Reading) this Presentation.*
+]
+
+</textarea>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+<!-- ::::::::::::::::::::: )-: ereh TNETNOCLAER fo dne :::::::::::::::::::: -->
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+    <script src="remark.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create({ highlightLanguage: 'tcl', highlightStyle: 'docco' });
+    </script>
+  </body>
+</html>
