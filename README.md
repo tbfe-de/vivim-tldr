@@ -146,7 +146,6 @@ to get complete enough for a attendee (or later reader) to "look at nothing
 else" for starting to apply the teaching material, will soon turn out to be
 **either incomplete** or needs to turn into **another reference source**.
 
-
 ### Ordinary Page Content
 
 You may note this:
@@ -190,7 +189,24 @@ better (for you), if not, I can't help further (and will surely not change my
 writing style of presentations as I successfully use it in lots  and lots of
 other presentations.)
 
-### Info-Graphics
+### Use of Info-Graphics
+
+I am a big fan of putting related information into (bigger) graphics, as I
+think it is often helpful to also see a bit of context, even if the focus
+of attention is also on a part of it.
+
+**The counter argument is that *"this large graphic" is overwhelming or even
+distracting"* from the main points to be made.**
+
+So please understand this: Info-Graphics in the way I compose them are not
+meant to be used "without any initial verbal explanation". And as part of that
+I usually zoom in and out, left and right, to put the part of the graphic I
+currently focus into the center of the listeners attention.
+
+(Thing of me as a living Prezi-Man", though not pre-programmed to do always
+the same way but interactively involving users with a direct reaction to their
+questions, which sometimes also show I should go one or two steps back or focus
+the attendees attention a bit differently, to clarify a particular issue.
 
 ## Forms of "Doing" this Presentation
 
